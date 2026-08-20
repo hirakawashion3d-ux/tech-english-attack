@@ -2,10 +2,11 @@ const settings = {
   standard: { seconds: 60, name: "WORD ATTACK" },
   sprint: { seconds: 30, name: "SPRINT MODE" },
   marathon: { seconds: 120, name: "MARATHON MODE" },
-  boss: { seconds: 60, name: "BOSS MODE" },
   review: { seconds: 60, name: "REVIEW MODE" }
 };
+const levelLabels = { basic: "BASIC", core: "CORE", advanced: "ADVANCED", mixed: "MIXED" };
 const mode = new URLSearchParams(window.location.search).get("mode") || "standard";
+const level = new URLSearchParams(window.location.search).get("level") || "mixed";
 const gameSettings = settings[mode] || settings.standard;
 
 let questions = [], questionIndex = 0, score = 0, combo = 0, maxCombo = 0;
@@ -24,22 +25,23 @@ aSyncStart();
 
 async function aSyncStart() {
   try {
-    document.getElementById("mode-name").textContent = gameSettings.name;
+    document.getElementById("mode-name").textContent = mode === "standard" ? levelLabels[level] + " LEVEL" : gameSettings.name;
     if (mode === "review") {
       const lastResult = JSON.parse(sessionStorage.getItem("techEnglishAttackResult") || "null");
       questions = lastResult ? lastResult.wrongWords : [];
       if (questions.length === 0) throw new Error("No review data");
     } else {
-      const response = await fetch("static/questions.json");
+      const response = await fetch("/api/questions?level=" + level);
       questions = await response.json();
-      if (mode === "boss") questions.sort(() => Math.random() - 0.5);
+      // This filter also makes the same JavaScript work on GitHub Pages.
+      if (level !== "mixed") questions = questions.filter((question) => question.level === level);
     }
     endTime = Date.now() + gameSettings.seconds * 1000;
     showQuestion();
     timerId = setInterval(updateTimer, 100);
   } catch (error) {
     wordElement.textContent = "NO REVIEW DATA";
-    feedbackElement.textContent = "PLAY STANDARD MODE FIRST";
+    feedbackElement.textContent = "PLAY A TRAINING MODE FIRST";
   }
 }
 
@@ -51,10 +53,7 @@ function updateTimer() {
 
 function showQuestion() {
   if (gameEnded) return;
-  if (questionIndex >= questions.length) {
-    questionIndex = 0;
-    questions.sort(() => Math.random() - 0.5);
-  }
+  if (questionIndex >= questions.length) { questionIndex = 0; questions.sort(() => Math.random() - 0.5); }
   const question = questions[questionIndex];
   numberElement.textContent = String(questionIndex + 1).padStart(2, "0");
   wordElement.textContent = question.word;
@@ -90,8 +89,7 @@ function answerQuestion(choice, question, selectedButton) {
     feedbackElement.className = "feedback wrong-text";
     setTimeout(nextQuestion, 700);
   }
-  scoreElement.textContent = score;
-  comboElement.textContent = combo;
+  scoreElement.textContent = score; comboElement.textContent = combo;
 }
 
 function nextQuestion() { if (!gameEnded) { questionIndex += 1; showQuestion(); } }
@@ -101,7 +99,7 @@ function endGame() {
   gameEnded = true; clearInterval(timerId); canAnswer = false;
   const totalAnswers = correct + wrong;
   const accuracy = totalAnswers === 0 ? 0 : Math.round((correct / totalAnswers) * 100);
-  const result = { score, correct, wrong, accuracy, maxCombo, wrongWords, mode };
+  const result = { score, correct, wrong, accuracy, maxCombo, wrongWords, mode, level };
   sessionStorage.setItem("techEnglishAttackResult", JSON.stringify(result));
   const bestScore = Number(localStorage.getItem("techEnglishAttackBestScore") || 0);
   if (score > bestScore) localStorage.setItem("techEnglishAttackBestScore", score);

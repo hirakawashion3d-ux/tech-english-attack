@@ -29,7 +29,7 @@
       document.getElementById("wrong-count").textContent = result.wrong;
       document.getElementById("accuracy").textContent = result.accuracy + "%";
       document.getElementById("max-combo").textContent = result.maxCombo;
-      document.getElementById("retry-link").href = "{{ url_for('game') }}?mode=" + result.mode;
+      document.getElementById("retry-link").href = "{{ url_for('game') }}?mode=" + result.mode + "&level=" + result.level;
       const list = document.getElementById("wrong-words"); list.innerHTML = "";
       if (result.wrongWords.length === 0) list.innerHTML = "<li>PERFECT RUN</li>";
       result.wrongWords.forEach((item) => { const li = document.createElement("li"); li.textContent = item.word + " — " + item.answer; list.appendChild(li); });
@@ -37,3 +37,4 @@
   </script>
 </body>
 </html>
+

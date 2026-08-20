@@ -2,36 +2,36 @@
 
 import random
 
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 
-from questions import questions
+from questions import all_questions
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def home():
-    """Show the home page."""
     return render_template("index.html")
 
 
 @app.route("/game")
 def game():
-    """Show the game page."""
     return render_template("game.html")
 
 
 @app.route("/result")
 def result():
-    """Show the result page."""
     return render_template("result.html")
 
 
 @app.route("/api/questions")
 def get_questions():
-    """Return questions in a random order without changing the original list."""
-    shuffled_questions = random.sample(questions, len(questions))
-    return jsonify(shuffled_questions)
+    """Return a shuffled question list. level is Basic, Core, Advanced, or mixed."""
+    level = request.args.get("level", "mixed")
+    selected_questions = all_questions
+    if level in ["basic", "core", "advanced"]:
+        selected_questions = [question for question in all_questions if question["level"] == level]
+    return jsonify(random.sample(selected_questions, len(selected_questions)))
 
 
 if __name__ == "__main__":

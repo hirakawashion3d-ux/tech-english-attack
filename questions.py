@@ -66,3 +66,41 @@ questions = [
     {"word": "attribute", "answer": "属性", "choices": ["属性", "例外", "範囲", "座標"]},
     {"word": "boolean", "answer": "真偽値", "choices": ["真偽値", "整数", "小数", "文字列"]},
 ]
+
+# Add a level to every original word question. The first half is beginner-friendly.
+for index, question in enumerate(questions):
+    if index < 30:
+        question["level"] = "basic"
+    else:
+        question["level"] = "core"
+
+advanced_questions = [
+    {"word": "iterate", "answer": "繰り返し処理する", "choices": ["繰り返し処理する", "初期化する", "削除する", "比較する"], "level": "advanced"},
+    {"word": "mutable", "answer": "変更可能な", "choices": ["変更可能な", "変更不可能な", "必須の", "非推奨の"], "level": "advanced"},
+    {"word": "immutable", "answer": "変更不可能な", "choices": ["変更可能な", "変更不可能な", "一時的な", "不明な"], "level": "advanced"},
+    {"word": "inheritance", "answer": "継承", "choices": ["継承", "反復", "例外", "変換"], "level": "advanced"},
+    {"word": "encapsulation", "answer": "カプセル化", "choices": ["カプセル化", "正規化", "最適化", "描画"], "level": "advanced"},
+    {"word": "asynchronous", "answer": "非同期の", "choices": ["同期の", "非同期の", "必須の", "安全な"], "level": "advanced"},
+    {"word": "concurrent", "answer": "同時実行の", "choices": ["順番通りの", "同時実行の", "重複した", "保留中の"], "level": "advanced"},
+    {"word": "dependency", "answer": "依存関係", "choices": ["依存関係", "実行環境", "戻り値", "比較演算子"], "level": "advanced"},
+    {"word": "compatibility", "answer": "互換性", "choices": ["可視性", "互換性", "再現性", "安全性"], "level": "advanced"},
+    {"word": "constraint", "answer": "制約", "choices": ["制約", "例外", "選択肢", "継承"], "level": "advanced"},
+    {"word": "interpolate", "answer": "補間する", "choices": ["補間する", "正規化する", "反転する", "削除する"], "level": "advanced"},
+    {"word": "quaternion", "answer": "四元数", "choices": ["行列", "四元数", "法線", "頂点"], "level": "advanced"},
+    {"word": "frustum", "answer": "視錐台", "choices": ["視錐台", "接線", "境界箱", "座標軸"], "level": "advanced"},
+    {"word": "occlusion", "answer": "遮蔽", "choices": ["遮蔽", "衝突", "反射", "屈折"], "level": "advanced"},
+    {"word": "instantiate", "answer": "インスタンス化する", "choices": ["インスタンス化する", "継承する", "中断する", "最適化する"], "level": "advanced"},
+    {"word": "serialize", "answer": "保存・送信できる形式に変換する", "choices": ["保存・送信できる形式に変換する", "画面に描画する", "計算を中断する", "型を確認する"], "level": "advanced"},
+    {"word": "refactor", "answer": "動作を保ってコードを改善する", "choices": ["動作を保ってコードを改善する", "機能を削除する", "新しいバグを作る", "実行を停止する"], "level": "advanced"},
+    {"word": "regression", "answer": "修正後に起きた機能の後退", "choices": ["高速化", "修正後に起きた機能の後退", "正常終了", "仕様の追加"], "level": "advanced"},
+    {"word": "The function returns a boolean value.", "answer": "関数は真偽値を返す", "choices": ["関数は真偽値を返す", "関数は数値を受け取る", "関数を削除する", "関数は例外を出す"], "level": "advanced"},
+    {"word": "This parameter is optional.", "answer": "この引数は任意である", "choices": ["この引数は必須である", "この引数は任意である", "この引数は文字列である", "この引数は削除された"], "level": "advanced"},
+    {"word": "The object is not iterable.", "answer": "そのオブジェクトは繰り返し処理できない", "choices": ["そのオブジェクトは削除された", "そのオブジェクトは繰り返し処理できない", "そのオブジェクトは空である", "そのオブジェクトは同期している"], "level": "advanced"},
+    {"word": "Cache the result to avoid redundant calculations.", "answer": "重複計算を避けるため結果をキャッシュする", "choices": ["結果を削除する", "重複計算を避けるため結果をキャッシュする", "計算を毎回やり直す", "結果を印刷する"], "level": "advanced"},
+    {"word": "The API is backward compatible.", "answer": "APIは後方互換性がある", "choices": ["APIは非推奨である", "APIは後方互換性がある", "APIは非同期である", "APIは無料である"], "level": "advanced"},
+    {"word": "Handle the exception gracefully.", "answer": "例外を適切に処理する", "choices": ["例外を無視する", "例外を適切に処理する", "例外を増やす", "例外を保存する"], "level": "advanced"},
+    {"word": "The feature has been deprecated.", "answer": "その機能は非推奨になった", "choices": ["その機能は必須になった", "その機能は非推奨になった", "その機能は高速になった", "その機能は無料になった"], "level": "advanced"},
+]
+
+# all_questions is used by both the Flask API and the GitHub Pages build script.
+all_questions = questions + advanced_questions

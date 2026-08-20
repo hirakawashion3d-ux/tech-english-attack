@@ -1,38 +1,19 @@
 ﻿<!doctype html>
 <html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TECH ENGLISH ATTACK</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body class="home-page">
-  <main class="home-panel">
-    <p class="eyebrow">PYTHON × TECHNICAL ENGLISH</p>
-    <h1>TECH<br><span>ENGLISH</span><br>ATTACK</h1>
-    <p class="home-copy">CHOOSE YOUR TRAINING MODE</p>
-    <section class="mode-grid">
-      <a class="mode-card main-mode" href="{{ url_for('game') }}?mode=standard"><span>01 / STANDARD</span><strong>WORD ATTACK</strong><small>60 SEC / TECH WORDS</small></a>
-      <a class="mode-card" href="{{ url_for('game') }}?mode=sprint"><span>02 / SPRINT</span><strong>30 SECOND RUN</strong><small>FAST SCORE ATTACK</small></a>
-      <a class="mode-card" href="{{ url_for('game') }}?mode=marathon"><span>03 / MARATHON</span><strong>120 SECOND RUN</strong><small>LONG TRAINING</small></a>
-      <a class="mode-card boss-mode" href="{{ url_for('game') }}?mode=boss"><span>04 / BOSS</span><strong>NO MERCY</strong><small>60 SEC / HIGH SPEED</small></a>
-      <a id="review-link" class="mode-card review-mode hidden" href="{{ url_for('game') }}?mode=review"><span>REVIEW</span><strong>WRONG WORDS</strong><small id="review-count">LAST RUN</small></a>
-    </section>
-    <section class="player-stats">
-      <p>BEST SCORE <strong id="best-score">0</strong></p>
-      <p>GAMES PLAYED <strong id="games-played">0</strong></p>
-      <p>BEST ACCURACY <strong id="best-accuracy">0%</strong></p>
-    </section>
-  </main>
-  <script>
-    document.getElementById("best-score").textContent = localStorage.getItem("techEnglishAttackBestScore") || "0";
-    document.getElementById("games-played").textContent = localStorage.getItem("techEnglishAttackGamesPlayed") || "0";
-    document.getElementById("best-accuracy").textContent = (localStorage.getItem("techEnglishAttackBestAccuracy") || "0") + "%";
-    const lastResult = JSON.parse(sessionStorage.getItem("techEnglishAttackResult") || "null");
-    if (lastResult && lastResult.wrongWords.length > 0) {
-      document.getElementById("review-link").classList.remove("hidden");
-      document.getElementById("review-count").textContent = lastResult.wrongWords.length + " WORDS TO RETRY";
-    }
-  </script>
-</body>
-</html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>TECH ENGLISH ATTACK</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body class="home-page"><main class="home-panel">
+<p class="eyebrow">PYTHON × TECHNICAL ENGLISH</p><h1>TECH<br><span>ENGLISH</span><br>ATTACK</h1>
+<p class="home-copy">BUILD YOUR LEVEL</p>
+<section class="mode-grid">
+<a class="mode-card main-mode" href="{{ url_for('game') }}?mode=standard&level=basic"><span>LEVEL 01 / BASIC</span><strong>FOUNDATION</strong><small>DAILY TECH WORDS</small></a>
+<a class="mode-card" href="{{ url_for('game') }}?mode=standard&level=core"><span>LEVEL 02 / CORE</span><strong>DEVELOPER</strong><small>PYTHON / 3DCG / GIT</small></a>
+<a class="mode-card boss-mode" href="{{ url_for('game') }}?mode=standard&level=advanced"><span>LEVEL 03 / ADVANCED</span><strong>TECH ENGLISH</strong><small>DOCS / PRACTICAL TERMS</small></a>
+<a class="mode-card" href="{{ url_for('game') }}?mode=standard&level=mixed"><span>LEVEL 04 / MIXED</span><strong>ALL LEVELS</strong><small>FULL VOCABULARY</small></a>
+<a class="mode-card" href="{{ url_for('game') }}?mode=sprint&level=mixed"><span>CHALLENGE / SPRINT</span><strong>30 SECOND RUN</strong><small>FAST SCORE ATTACK</small></a>
+<a class="mode-card" href="{{ url_for('game') }}?mode=marathon&level=mixed"><span>CHALLENGE / MARATHON</span><strong>120 SECOND RUN</strong><small>LONG TRAINING</small></a>
+<a id="review-link" class="mode-card review-mode hidden" href="{{ url_for('game') }}?mode=review"><span>REVIEW</span><strong>WRONG WORDS</strong><small id="review-count">LAST RUN</small></a>
+</section>
+<section class="player-stats"><p>BEST SCORE <strong id="best-score">0</strong></p><p>GAMES PLAYED <strong id="games-played">0</strong></p><p>BEST ACCURACY <strong id="best-accuracy">0%</strong></p></section>
+</main><script>
+document.getElementById("best-score").textContent=localStorage.getItem("techEnglishAttackBestScore")||"0";document.getElementById("games-played").textContent=localStorage.getItem("techEnglishAttackGamesPlayed")||"0";document.getElementById("best-accuracy").textContent=(localStorage.getItem("techEnglishAttackBestAccuracy")||"0")+"%";const lastResult=JSON.parse(sessionStorage.getItem("techEnglishAttackResult")||"null");if(lastResult&&lastResult.wrongWords.length>0){document.getElementById("review-link").classList.remove("hidden");document.getElementById("review-count").textContent=lastResult.wrongWords.length+" WORDS TO RETRY";}
+</script></body></html>
