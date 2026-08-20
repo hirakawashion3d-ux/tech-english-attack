@@ -1,4 +1,4 @@
-﻿const settings = {
+const settings = {
   standard: { seconds: 60, name: "WORD ATTACK" },
   sprint: { seconds: 30, name: "SPRINT MODE" },
   marathon: { seconds: 120, name: "MARATHON MODE" },
@@ -30,7 +30,7 @@ async function aSyncStart() {
       questions = lastResult ? lastResult.wrongWords : [];
       if (questions.length === 0) throw new Error("No review data");
     } else {
-      const response = await fetch("/api/questions");
+      const response = await fetch("static/questions.json");
       questions = await response.json();
       if (mode === "boss") questions.sort(() => Math.random() - 0.5);
     }
@@ -108,5 +108,5 @@ function endGame() {
   localStorage.setItem("techEnglishAttackGamesPlayed", Number(localStorage.getItem("techEnglishAttackGamesPlayed") || 0) + 1);
   const bestAccuracy = Number(localStorage.getItem("techEnglishAttackBestAccuracy") || 0);
   if (accuracy > bestAccuracy) localStorage.setItem("techEnglishAttackBestAccuracy", accuracy);
-  window.location.href = "/result";
+  window.location.href = "result.html";
 }

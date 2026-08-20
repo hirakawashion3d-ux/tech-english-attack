@@ -1,10 +1,10 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ja">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RESULT | TECH ENGLISH ATTACK</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="static/style.css">
 </head>
 <body class="result-page">
   <main class="result-shell">
@@ -18,8 +18,8 @@
       <div><span>MAX COMBO</span><strong id="max-combo">0</strong></div>
     </div>
     <section class="wrong-words-panel"><h2>WRONG WORDS</h2><ul id="wrong-words"><li>NO DATA</li></ul></section>
-    <a id="retry-link" class="start-button small" href="{{ url_for('game') }}">RETRY <span>▶</span></a>
-    <a class="back-link" href="{{ url_for('home') }}">← HOME</a>
+    <a id="retry-link" class="start-button small" href="game.html">RETRY <span>▶</span></a>
+    <a class="back-link" href="index.html">← HOME</a>
   </main>
   <script>
     const result = JSON.parse(sessionStorage.getItem("techEnglishAttackResult") || "null");
@@ -29,7 +29,7 @@
       document.getElementById("wrong-count").textContent = result.wrong;
       document.getElementById("accuracy").textContent = result.accuracy + "%";
       document.getElementById("max-combo").textContent = result.maxCombo;
-      document.getElementById("retry-link").href = "{{ url_for('game') }}?mode=" + result.mode;
+      document.getElementById("retry-link").href = "game.html?mode=" + result.mode;
       const list = document.getElementById("wrong-words"); list.innerHTML = "";
       if (result.wrongWords.length === 0) list.innerHTML = "<li>PERFECT RUN</li>";
       result.wrongWords.forEach((item) => { const li = document.createElement("li"); li.textContent = item.word + " — " + item.answer; list.appendChild(li); });
