@@ -11,6 +11,15 @@
     <p class="eyebrow">PYTHON × TECHNICAL ENGLISH</p>
     <h1>TECH<br><span>ENGLISH</span><br>ATTACK</h1>
     <p class="home-copy">READ ENGLISH. TYPE PYTHON. BUILD YOUR SKILL.</p>
+    <section class="home-learn-section">
+      <p class="home-section-title"><span>LEARN</span> UNDERSTAND FIRST</p>
+      <a id="continue-learning" class="continue-learning-card" href="learn/index.html"><div><span>CONTINUE LEARNING</span><strong id="continue-title">START PYTHON</strong><small id="continue-meta">Pythonって何？ / 3 min</small></div><b>CONTINUE →</b></a>
+      <div class="learn-home-grid">
+        <a class="learn-home-card" href="learn/index.html"><span>PYTHON COURSE</span><strong>LEARN PYTHON</strong><small>100+ CONCEPTS / NO LOCKS</small></a>
+        <a class="learn-home-card" href="learn/english/index.html"><span>READ DOCUMENTS</span><strong>TECH ENGLISH</strong><small>CODE / ERROR / PHRASES</small></a>
+        <a class="learn-home-card" href="glossary.html"><span>SEARCH</span><strong>GLOSSARY</strong><small>PYTHON × ENGLISH</small></a>
+      </div>
+    </section>
 
     <section class="home-mode-section">
       <p class="home-section-title"><span>01</span> WORD ATTACK</p>
@@ -70,6 +79,14 @@
       const bestScore = courseResults[courseId] ? courseResults[courseId].bestScore : 0;
       document.getElementById("home-best-" + courseId).textContent = bestScore.toLocaleString();
     });
+    const learnProgress = JSON.parse(localStorage.getItem("techEnglishLearnProgress") || "null");
+    if (learnProgress && learnProgress.last) {
+      const last = learnProgress.last;
+      const staticHome = document.getElementById("continue-learning").getAttribute("href").includes(".html");
+      document.getElementById("continue-learning").href = (staticHome ? "learn/" + last.module + "/" + last.concept + ".html" : "/learn/" + last.module + "/" + last.concept);
+      document.getElementById("continue-title").textContent = last.moduleTitle + " / " + last.title;
+      document.getElementById("continue-meta").textContent = last.minutes + " min / " + (learnProgress.states[last.module + "/" + last.concept] || "READ");
+    }
   </script>
 </body>
 </html>

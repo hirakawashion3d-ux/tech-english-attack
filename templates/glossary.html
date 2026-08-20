@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GLOSSARY | TECH ENGLISH ATTACK</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="learn-page glossary-page">
+  <main class="learn-shell">
+    <header class="learn-header"><a class="back-link" href="{{ url_for('home') }}">← HOME</a><a class="progress-link" href="{{ url_for('learn') }}">LEARN PYTHON</a></header>
+    <p class="eyebrow">PYTHON × TECH ENGLISH</p>
+    <h1 class="learn-main-title">GLOSSARY</h1>
+    <p class="learn-lead">Concept、Python keyword、技術英語、Errorを検索できます。</p>
+    <label class="glossary-search-label" for="glossary-search">SEARCH</label>
+    <input id="glossary-search" class="glossary-search" type="search" placeholder="return / variable / error">
+    <p id="glossary-count" class="section-label"></p>
+    <div id="glossary-results" class="glossary-results"></div>
+  </main>
+  <script src="{{ url_for('static', filename='glossary.js') }}"></script>
+</body>
+</html>

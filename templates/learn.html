@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LEARN PYTHON | TECH ENGLISH ATTACK</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="learn-page">
+  <main class="learn-shell">
+    <header class="learn-header">
+      <a id="learn-home-link" class="back-link" href="{{ url_for('home') }}">← HOME</a>
+      <nav><a id="learn-index-link" href="#">PYTHON COURSE</a><a id="learn-english-link" href="#">TECH ENGLISH</a><a id="glossary-link" href="#">GLOSSARY</a></nav>
+    </header>
+    <div id="learn-content"><p class="eyebrow">LOADING LEARN...</p></div>
+  </main>
+  <script src="{{ url_for('static', filename='learn.js') }}"></script>
+</body>
+</html>

@@ -7,6 +7,7 @@ from flask import Flask, jsonify, render_template, request
 from questions import all_questions
 from sentence_questions import sentence_questions
 from python_lessons import python_lessons
+from learning import all_learning_concepts, english_modules, learning_modules
 
 app = Flask(__name__)
 
@@ -34,6 +35,28 @@ def python_training():
 @app.route("/progress")
 def progress():
     return render_template("progress.html")
+
+
+@app.route("/learn")
+@app.route("/learn/<module_id>")
+@app.route("/learn/<module_id>/<concept_id>")
+def learn(module_id=None, concept_id=None):
+    """Render the LEARN shell; JavaScript selects the requested content."""
+    return render_template("learn.html")
+
+
+@app.route("/glossary")
+def glossary():
+    return render_template("glossary.html")
+
+
+@app.route("/api/learning")
+def get_learning_content():
+    return jsonify({
+        "modules": learning_modules,
+        "english_modules": english_modules,
+        "concepts": all_learning_concepts,
+    })
 
 
 @app.route("/api/questions")

@@ -25,6 +25,9 @@ const courseResultsKey = "techEnglishCourseResults";
 const isStaticSite = window.location.pathname.endsWith("python-training.html");
 const lessonsUrl = isStaticSite ? "static/python_lessons.json" : "/api/python-lessons";
 const requestedCourseId = new URLSearchParams(window.location.search).get("course");
+const requestedSkill = new URLSearchParams(window.location.search).get("skill");
+const requestedConcept = new URLSearchParams(window.location.search).get("concept");
+const requestedLearnModule = new URLSearchParams(window.location.search).get("learn_module");
 
 let allLessons = [];
 let sessionLessons = [];
@@ -71,6 +74,7 @@ async function startTrainingPage() {
     if (!response.ok) throw new Error("Could not load Python lessons");
     allLessons = await response.json();
     if (scoreCourses[requestedCourseId]) beginCourseAttack(requestedCourseId);
+    else if (skillNames[requestedSkill]) beginPracticeSession(requestedSkill, false);
   } catch (error) {
     skillMap.innerHTML = '<p class="load-error">LESSON DATA COULD NOT BE LOADED</p>';
   }
@@ -260,6 +264,7 @@ function showQuestion() {
   document.getElementById("exercise-type").textContent = lesson.type.toUpperCase();
   document.getElementById("difficulty").textContent = `LEVEL ${lesson.difficulty}`;
   document.getElementById("instruction").textContent = lesson.instruction;
+  document.getElementById("learn-this-link").href = learningLinkForLesson(lesson);
   const codeSample = document.getElementById("code-sample");
   if (lesson.code) {
     codeSample.querySelector("code").textContent = lesson.code;
@@ -280,6 +285,15 @@ function showQuestion() {
   nextButton.classList.add("hidden");
   checkButton.classList.remove("hidden");
   answerInput.focus();
+}
+
+function learningLinkForLesson(lesson) {
+  const moduleBySkill = { variables: "variables", if: "if", for: "for", functions: "functions", lists: "lists" };
+  const conceptBySkill = { variables: "what-is-variable", if: "what-is-if", for: "what-is-loop", functions: "what-is-function", lists: "what-is-list" };
+  const moduleId = requestedLearnModule || moduleBySkill[lesson.skill] || "start-python";
+  const conceptId = requestedConcept || conceptBySkill[lesson.skill] || "what-is-python";
+  if (isStaticSite) return `learn/${moduleId}/${conceptId}.html`;
+  return `/learn/${moduleId}/${conceptId}`;
 }
 
 function normalizeAnswer(value) {

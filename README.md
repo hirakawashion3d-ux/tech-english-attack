@@ -25,6 +25,27 @@ python app.py
 
 すべてのSkillは最初から選択できます。レッスンのロックや強制順序はありません。
 
+## LEARN
+
+LEARNはクイズではなく、知らないConceptを最初から理解する独立ページ群です。
+
+- **LEARN** — 説明、コード、Visual、WHY、Mistake、Game Useを読んで理解する。
+- **PRACTICE** — 既存Python Trainingで、ヒントを使いながらコードを繰り返し書く。
+- **PLAYGROUND / RUN IT** — ブラウザ内の安全なミニ実行環境で値を変更して試す。
+- **CHALLENGE** — ヒントに頼らず自力でできるか確認する。
+
+`/learn` には15 Module、153 Python Concept、40 Tech English Conceptがあります。すべて最初から閲覧でき、Score・Accuracy・Combo・Timerは表示しません。
+
+```text
+/learn
+/learn/variables
+/learn/variables/assignment
+```
+
+Conceptを開くとlocalStorageへ最後のページと状態（NEW / READ / TRIED / PRACTICED）を保存します。HomeのCONTINUE LEARNINGから再開でき、SAVEしたConceptは同じ進捗データのbookmarksに入ります。Concept末尾のPRACTICE THISは関連するPython Trainingへ移動し、TrainingのLEARN THIS CONCEPTから説明へ戻れます。
+
+教材データは `learning/catalog.py` と `learning/english.py` にあります。追加後は `python validate_learning.py` でID・必須キー・Pythonサンプル構文を確認し、`python build_site.py` でGitHub Pages用の全学習ページを生成します。
+
 ## Python Training
 
 Python Trainingは、答えを眺める教材ではなく、英語を読む → Pythonを考える → 入力する → 間違いを修正する、を短時間で反復する練習場です。
@@ -99,13 +120,16 @@ python build_site.py
 
 1. `app.py` — ページとAPI route
 2. `questions.py` / `sentence_questions.py` — 英語ゲームの問題
-3. `python_lessons.py` — Python Trainingの50問
-4. `templates/` — 画面のHTML
-5. `static/training.js` — 5問セッション、入力判定、XP保存
-6. `static/progress.js` — Accuracyと星の表示
-7. `static/game.js` — 既存WORD/SENTENCEゲーム
-8. `static/style.css` — ダークHUDデザイン
-9. `build_site.py` — GitHub Pages用ファイルの生成
+3. `learning/catalog.py` — Python LEARNのModuleと153 Concept
+4. `learning/english.py` — Tech English LEARNの40 Concept
+5. `static/learn.js` — Module/Concept表示、RUN、進捗、Bookmark
+6. `python_lessons.py` — Python Trainingの50問
+7. `templates/` — 画面のHTML
+8. `static/training.js` — 5問セッション、入力判定、XP保存
+9. `static/progress.js` — Accuracyと星の表示
+10. `static/game.js` — 既存WORD/SENTENCEゲーム
+11. `static/style.css` — ダークHUDデザイン
+12. `build_site.py` — GitHub Pages用ファイルの生成
 
 ## Python学習ポイント
 
