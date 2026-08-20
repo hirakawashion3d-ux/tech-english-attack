@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WORD MODE | TECH ENGLISH ATTACK</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="game-page">
+  <main class="game-shell">
+    <header class="hud">
+      <div class="hud-item time"><span>TIME</span><strong id="time">60.0</strong></div>
+      <div class="hud-item score"><span>SCORE</span><strong id="score">0</strong></div>
+      <div class="hud-item combo"><span>COMBO</span><strong id="combo">0</strong></div>
+    </header>
+    <section class="question-area" aria-live="polite">
+      <p class="mode-label">WORD MODE <span id="question-number">01</span></p>
+      <h1 id="word">READY?</h1>
+      <p id="feedback" class="feedback">GET READY</p>
+    </section>
+    <section id="choices" class="choices" aria-label="回答を選ぶ"></section>
+  </main>
+  <script src="{{ url_for('static', filename='game.js') }}"></script>
+</body>
+</html>

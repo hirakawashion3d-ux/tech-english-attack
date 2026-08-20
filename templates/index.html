@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TECH ENGLISH ATTACK</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="home-page">
+  <main class="home-panel">
+    <p class="eyebrow">PYTHON × TECHNICAL ENGLISH</p>
+    <h1>TECH<br><span>ENGLISH</span><br>ATTACK</h1>
+    <p class="home-copy">WORD MODE / 60 SEC / 4 CHOICES</p>
+    <a class="start-button" href="{{ url_for('game') }}">START <span>▶</span></a>
+    <p class="best-score">BEST SCORE <strong id="best-score">0</strong></p>
+  </main>
+  <script>
+    document.getElementById("best-score").textContent = localStorage.getItem("techEnglishAttackBestScore") || "0";
+  </script>
+</body>
+</html>
