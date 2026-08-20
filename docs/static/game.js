@@ -31,7 +31,7 @@ async function aSyncStart() {
       questions = lastResult ? lastResult.wrongWords : [];
       if (questions.length === 0) throw new Error("No review data");
     } else {
-      const response = await fetch("/api/questions?level=" + level);
+      const response = await fetch("static/questions.json");
       questions = await response.json();
       // This filter also makes the same JavaScript work on GitHub Pages.
       if (level !== "mixed") questions = questions.filter((question) => question.level === level);

@@ -32,7 +32,10 @@ def build_site():
     shutil.copy2(ROOT / "static" / "style.css", DOCS / "static" / "style.css")
 
     javascript = (ROOT / "static" / "game.js").read_text(encoding="utf-8-sig")
-    javascript = javascript.replace('fetch("static/questions.json")', 'fetch("static/questions.json")')
+    javascript = javascript.replace(
+        'fetch("/api/questions?level=" + level)',
+        'fetch("static/questions.json")',
+    )
     javascript = javascript.replace('window.location.href = "/result"', 'window.location.href = "result.html"')
     (DOCS / "static" / "game.js").write_text(javascript, encoding="utf-8")
     (DOCS / "static" / "questions.json").write_text(json.dumps(all_questions, ensure_ascii=False), encoding="utf-8")
