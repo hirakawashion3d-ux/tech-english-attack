@@ -1,8 +1,6 @@
 # TECH ENGLISH ATTACK
 
-Python・プログラミング・ゲーム開発・3DCGの技術英語を、ゲームとして毎日練習するアプリです。ローカルではFlaskで動き、GitHub Pagesでも公開できます。
-
-完成したゲームで遊びながら、ユーザー本人がPythonを手打ちして育てる教材として、読みやすく小さな構造を優先しています。
+技術英語を読み、Pythonコードを実際に入力して覚えるローカル学習アプリです。完成したゲームとして遊びながら、ユーザー本人がPythonを手打ちして拡張できる小さな構造を優先しています。
 
 ## 起動方法（Windows）
 
@@ -16,114 +14,128 @@ python app.py
 
 起動後、ブラウザで [http://127.0.0.1:5000](http://127.0.0.1:5000) を開きます。
 
-## 遊べるモード
+## 学習モード
 
-- **WORD ATTACK** — 60秒の標準4択。
-- **SENTENCE MODE** — 60秒で短い技術英文を読み、日本語の意味を選ぶ。
-- **SPRINT** — 30秒の高速スコアアタック。
-- **MARATHON** — 120秒の長時間トレーニング。
-- **REVIEW MODE** — 直前のプレイで間違えた単語・英文だけを再出題。
+- **WORD ATTACK** — 技術英単語の60秒4択ゲーム。
+- **SENTENCE MODE** — 短い技術英文の意味を読む60秒4択ゲーム。
+- **SPRINT / MARATHON** — 30秒または120秒のスコアアタック。
+- **REVIEW MODE** — 直前に間違えた単語・英文を再出題。
+- **PYTHON TRAINING** — 5問ずつ実際にPythonを入力する練習。
+- **CHALLENGE MODE** — 5つのSkillと問題形式を混ぜた10問の実力確認。
 
-終了後にはSCORE、正解数、不正解数、Accuracy、Max Combo、間違えた問題を確認できます。最高スコア、最高正答率、プレイ回数はブラウザのlocalStorageに保存されます。
+すべてのSkillは最初から選択できます。レッスンのロックや強制順序はありません。
+
+## Python Training
+
+Python Trainingは、答えを眺める教材ではなく、英語を読む → Pythonを考える → 入力する → 間違いを修正する、を短時間で反復する練習場です。
+
+- **TYPE** — 表示されたコードを正確に入力する。
+- **FILL** — `___` に入る値や演算子、キーワードを入力する。
+- **PREDICT** — コードを読み、実行結果を入力する。
+- **FIX** — Syntax Errorや変数名、インデントを自分で修正する。
+- **BUILD** — 完成コードを見ず、日本語または短い英語の指示からコードを作る。
+
+1回目の不正解では `TRY AGAIN` のみを表示します。その後は英単語の短いHINTを利用でき、3回目から `SHOW ANSWER` を選べます。正解後には短いExplanationを表示します。textarea内でTabを押すと4スペースのインデントが入ります。
+
+### Skill Map
+
+以下の5カテゴリを自由に練習できます。
+
+- `VARIABLES`
+- `IF`
+- `FOR`
+- `FUNCTIONS`
+- `LISTS`
+
+各SkillにはTYPE / FILL / PREDICT / FIX / BUILDを2問ずつ、合計10問用意しています。全体では50問です。
+
+### XP・星・Progress
+
+正解は基本100 XPです。ヒントなしならボーナスが付き、複数回試した場合も最低40 XPを獲得できます。学習を罰ゲームにしないため、失敗してもXPがマイナスになることはありません。
+
+星はSkillごとの過去Accuracyから計算します。未プレイは `☆☆☆☆☆`、Accuracy 0〜39%は★、40〜59%は★★、60〜74%は★★★、75〜89%は★★★★、90%以上は★★★★★です。
+
+Progress画面ではTOTAL XP、TOTAL TRAINING、PYTHON ACCURACYと、Skillごとの星・Accuracyを確認できます。成績はブラウザのlocalStorageへ保存します。
+
+### Challenge
+
+5カテゴリから10問を選び、TYPE / FILL / PREDICT / FIX / BUILDを混ぜて出題します。Skillを順番にクリアするモードではなく、現在の実力を自由に試すモードです。
 
 ## GitHub Pages版
 
 公開サイト：<https://hirakawashion3d-ux.github.io/tech-english-attack/>
 
-GitHub PagesはFlask/Pythonを実行できないため、`build_site.py` が公開用ファイルを `docs` フォルダへ作ります。
+GitHub PagesではPythonを実行できないため、次の流れで公開用データを作ります。
+
+```text
+python_lessons.py
+        ↓
+python build_site.py
+        ↓
+docs/static/python_lessons.json
+        ↓
+GitHub Pages
+```
+
+WORD問題は `questions.json`、Sentence問題は `sentences.json`、Python Training問題は `python_lessons.json` として `docs/static` へ出力されます。Pythonの問題データを変更したら、commit前に次を実行してください。
 
 ```bash
 python build_site.py
 ```
 
-WORD問題は `docs/static/questions.json`、Sentence問題は `docs/static/sentences.json` に出力されます。問題を変更したら、commitの前にもう一度ビルドしてください。
-
 ## コードの読み方
 
-次の順番で読むと、初心者でも処理を追いやすくなります。
-
-1. `app.py` — URL、ページ表示、問題API
-2. `questions.py` — WORD MODEのlistとdictionary
-3. `sentence_questions.py` — SENTENCE MODEの英文、選択肢、keywords
-4. `templates/` — Flask版のHTML
-5. `static/game.js` — タイマー、正誤判定、モード分岐、成績保存
-6. `static/style.css` — HUD風UIとSentence用レイアウト
-7. `build_site.py` — GitHub Pages用サイトを作るPythonスクリプト
+1. `app.py` — ページとAPI route
+2. `questions.py` / `sentence_questions.py` — 英語ゲームの問題
+3. `python_lessons.py` — Python Trainingの50問
+4. `templates/` — 画面のHTML
+5. `static/training.js` — 5問セッション、入力判定、XP保存
+6. `static/progress.js` — Accuracyと星の表示
+7. `static/game.js` — 既存WORD/SENTENCEゲーム
+8. `static/style.css` — ダークHUDデザイン
+9. `build_site.py` — GitHub Pages用ファイルの生成
 
 ## Python学習ポイント
 
-- **import**: `app.py` がFlask、`random`、2つの問題ファイルを読み込みます。
-- **list**: `questions` と `sentence_questions` は問題を順番に持つリストです。
-- **dictionary**: 1問ごとに英文、正解、選択肢、難易度などを名前付きで持ちます。
-- **function**: `home()`、`get_questions()`、`get_sentences()` が役割ごとの関数です。
-- **if**: 選択された難易度によって返す問題を変えます。
-- **return**: 関数からHTMLやJSONを返します。
-- **random**: `random.sample()` が問題をランダムな順番にします。
-- **for**: リスト内包表記やビルド処理で、問題や置換項目を順番に処理します。
+- **import**: `app.py` と `build_site.py` が `python_lessons.py` のlistを読み込みます。
+- **list**: 50問を順番に保持し、条件に合う問題を新しいlistへ取り出します。
+- **dictionary**: 各問題に `skill`、`type`、`instruction`、`answer`、`hint`、`explanation`、`difficulty` を保存します。
+- **function**: `get_python_lessons()` がTraining問題をJSONで返します。
+- **if**: `skill` や `type` が指定されたときだけ問題を絞り込みます。
+- **for**: list内包表記で、各問題のSkillや形式を順番に確認します。
+- **random**: `random.sample()` がAPIの問題順をランダムにします。
+- **return**: route関数からHTMLまたはJSONを返します。
 
-## 難易度
+## Python Training問題の追加方法
 
-- **Basic**: 短く基本的な単語・英文。
-- **Core**: Python、3DCG、ゲーム開発、Gitで頻出する表現。
-- **Advanced**: 実際のドキュメントや警告に近い表現。
-- **Mixed**: すべての難易度から出題。
-
-おすすめは、Basicを正答率80%まで遊ぶ → Coreへ進む → Advancedを声に出して読む → REVIEW MODEで間違いを復習する流れです。
-
-### Sentence Modeで学べる英語
-
-技術英文では、最初に「何が（subject）」「どうする（verb）」を探します。たとえば `The function returns ...` は、subjectが `The function`、verbが `returns` です。
-
-- **returns**: 戻り値として「返す」。
-- **takes**: 関数が引数を「受け取る」。
-- **updates / removes / stores / checks**: 「更新する / 削除する / 保存する / 確認する」。主語の直後に出やすい動作です。
-- **exists**: ファイルや値が「存在する」。`does not exist` は「存在しない」。
-- **required**: 必須。省略できません。
-- **optional**: 任意。省略できます。
-- **deprecated**: 非推奨。今は使えても将来削除される可能性があります。
-- **if**: 「もし〜なら」。条件を示します。
-- **when**: 「〜する時」。処理が起きるタイミングを示します。
-- **until**: 「〜するまで」。処理を続ける終点を示します。
-
-### v2で追加されたPython学習ポイント
-
-- **別ファイルからimportする**: `app.py` が `sentence_questions.py` の問題リストを読み込みます。
-- **新しいAPI routeを追加する**: `/api/sentences` がSentence問題をJSONで返します。
-- **listをフィルタリングする**: 選ばれた `level` と一致する問題だけをリスト内包表記で取り出します。
-- **dictionaryに新しいキーを追加する**: `sentence`、`keywords`、`category`、`type` で問題の情報を整理します。
-- **modeによって処理を分岐する**: JavaScriptがWORD、SENTENCE、REVIEWでデータと表示方法を切り替えます。
-
-## 問題を追加するには
-
-Sentence問題は `sentence_questions.py` の `sentence_questions` リストへdictionaryを1つ追加します。`answer` は必ず `choices` にも入れてください。
+`python_lessons.py` の `python_lessons` listへdictionaryを追加します。既存の1問を見本にして、以下のキーをすべて指定してください。
 
 ```python
 {
-    "sentence": "The method returns a new object.",
-    "answer": "メソッドは新しいオブジェクトを返す",
-    "choices": [
-        "メソッドは新しいオブジェクトを返す",
-        "メソッドはオブジェクトを削除する",
-        "メソッドはファイルを開く",
-        "メソッドは何も受け取らない",
-    ],
-    "keywords": ["method", "returns", "new", "object"],
-    "level": "basic",
-    "category": "Function / Method",
-    "type": "sentence",
-},
+    "skill": "variables",
+    "type": "build",
+    "instruction": "Create a variable called score and set it to 0.",
+    "answer": "score = 0",
+    "hint": "create = 作る / set = 設定する",
+    "explanation": "scoreという変数に数値0を代入しています。",
+    "difficulty": 1,
+}
 ```
 
-## 将来の拡張案
+追加後は `python build_site.py` を実行すると、Flask版とGitHub Pages版へ同じ問題を反映できます。
 
-- 苦手な問題ほど出やすくする
-- ERROR MODEを追加する
-- CODE MODEを追加する
-- 日付ごとの成績履歴を保存する
-- SQLiteで問題と成績を管理する
+## Sentence Modeで学べる英語
 
-## 次に手打ちする小さなPython課題
+技術英文では最初に「何が（subject）」「どうする（verb）」を探します。`The function returns ...` ならsubjectは `The function`、verbは `returns` です。
 
-**Sentenceのレベル別出題数を自分で変更する。**
+- **returns / takes** — 戻り値を返す / 引数を受け取る
+- **updates / removes / stores / checks** — 更新する / 削除する / 保存する / 確認する
+- **exists** — 存在する。`does not exist` は存在しない
+- **required / optional / deprecated** — 必須 / 任意 / 非推奨
+- **if / when / until** — もし〜なら / 〜するとき / 〜するまで
 
-`sentence_questions.py` の各レベルの問題数を数え、`app.py` で返す数を調整してみてください。完成コードをコピーせず、まず変数と `if` を使う方法を考える練習です。
+## ユーザー本人が次にPythonで追加する課題
+
+**新しく「WHILE」Skillを自分で追加する。**
+
+`python_lessons.py`へwhile問題を追加し、Skill一覧と `/api/python-lessons` の絞り込み対象にも `while` を加えてください。完成コードをコピーせず、まず既存の `for` Skillがどのファイルを通って表示されるか追ってみましょう。

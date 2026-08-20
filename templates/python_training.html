@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PYTHON TRAINING | TECH ENGLISH ATTACK</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="training-page">
+  <main class="training-shell">
+    <header class="training-header">
+      <a class="back-link" href="{{ url_for('home') }}">← HOME</a>
+      <a class="progress-link" href="{{ url_for('progress') }}">VIEW PROGRESS</a>
+    </header>
+
+    <section id="skill-screen">
+      <p class="eyebrow">TYPE / THINK / FIX / REPEAT</p>
+      <h1 class="training-title">PYTHON<br><span>TRAINING</span></h1>
+      <p class="training-copy">好きなSkillから5問。すべて最初から選べます。</p>
+      <div id="skill-map" class="skill-map"></div>
+      <button id="challenge-button" class="challenge-button" type="button">
+        <span>10 QUESTIONS / ALL SKILLS</span><strong>CHALLENGE MODE</strong>
+      </button>
+    </section>
+
+    <section id="lesson-screen" class="lesson-screen hidden">
+      <header class="lesson-hud">
+        <div><span>SKILL</span><strong id="lesson-skill">VARIABLES</strong></div>
+        <div><span>PROGRESS</span><strong id="lesson-progress">1 / 5</strong></div>
+        <div><span>SESSION XP</span><strong id="session-xp">0</strong></div>
+      </header>
+      <div class="lesson-card">
+        <p class="exercise-label"><span id="exercise-type">BUILD</span><span id="difficulty">LEVEL 1</span></p>
+        <h2 id="instruction">Loading...</h2>
+        <pre id="code-sample" class="code-sample hidden"><code></code></pre>
+        <label class="answer-label" for="code-answer">YOUR CODE / ANSWER</label>
+        <textarea id="code-answer" rows="5" spellcheck="false" autocomplete="off" autocapitalize="off"></textarea>
+        <p id="training-feedback" class="training-feedback" aria-live="polite">TYPE YOUR ANSWER</p>
+        <div id="hint-box" class="learning-box hidden"><strong>HINT</strong><p></p></div>
+        <div id="explanation-box" class="learning-box explanation-box hidden"><strong>EXPLANATION</strong><p></p></div>
+        <div class="lesson-actions">
+          <button id="check-button" class="action-button primary-action" type="button">CHECK</button>
+          <button id="hint-button" class="action-button" type="button" disabled>HINT</button>
+          <button id="show-answer-button" class="action-button danger-action hidden" type="button">SHOW ANSWER</button>
+          <button id="next-button" class="action-button primary-action hidden" type="button">NEXT</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="complete-screen" class="complete-screen hidden">
+      <p class="eyebrow">TRAINING COMPLETE</p>
+      <h1>COMPLETE</h1>
+      <div class="training-result-grid">
+        <div><span>ACCURACY</span><strong id="complete-accuracy">0%</strong></div>
+        <div><span>ATTEMPTS</span><strong id="complete-attempts">0</strong></div>
+        <div><span>HINTS</span><strong id="complete-hints">0</strong></div>
+        <div><span>SKILL XP</span><strong id="complete-xp">0</strong></div>
+      </div>
+      <div class="complete-actions">
+        <button id="train-again-button" class="start-button small" type="button">TRAIN AGAIN <span>→</span></button>
+        <a class="back-link" href="{{ url_for('progress') }}">VIEW PROGRESS</a>
+      </div>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='training.js') }}"></script>
+</body>
+</html>

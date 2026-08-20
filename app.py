@@ -6,6 +6,7 @@ from flask import Flask, jsonify, render_template, request
 
 from questions import all_questions
 from sentence_questions import sentence_questions
+from python_lessons import python_lessons
 
 app = Flask(__name__)
 
@@ -23,6 +24,16 @@ def game():
 @app.route("/result")
 def result():
     return render_template("result.html")
+
+
+@app.route("/python-training")
+def python_training():
+    return render_template("python_training.html")
+
+
+@app.route("/progress")
+def progress():
+    return render_template("progress.html")
 
 
 @app.route("/api/questions")
@@ -45,6 +56,21 @@ def get_sentences():
             question for question in sentence_questions if question["level"] == level
         ]
     return jsonify(random.sample(selected_sentences, len(selected_sentences)))
+
+
+@app.route("/api/python-lessons")
+def get_python_lessons():
+    """Return Python lessons filtered by skill and exercise type."""
+    skill = request.args.get("skill")
+    exercise_type = request.args.get("type")
+    selected_lessons = python_lessons
+
+    if skill in ["variables", "if", "for", "functions", "lists"]:
+        selected_lessons = [lesson for lesson in selected_lessons if lesson["skill"] == skill]
+    if exercise_type in ["type", "fill", "predict", "fix", "build"]:
+        selected_lessons = [lesson for lesson in selected_lessons if lesson["type"] == exercise_type]
+
+    return jsonify(random.sample(selected_lessons, len(selected_lessons)))
 
 if __name__ == "__main__":
     app.run(debug=True)

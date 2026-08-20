@@ -16,3 +16,58 @@ body::before { content:""; position:fixed; inset:0; pointer-events:none; opacity
 .wrong-answer { margin:0; color:var(--lime); font-size:.9rem; line-height:1.45; }
 .wrong-keywords { margin:7px 0 0; color:var(--cyan); font-size:.75rem; letter-spacing:.04em; line-height:1.5; }
 @media (max-width:560px) { .sentence-mode .question-area { min-height:250px; padding-top:42px; }.sentence-mode .question-area h1 { font-size:clamp(1.65rem,8vw,2.5rem); line-height:1.25; }.sentence-mode .choice-button { font-size:.95rem; } }
+/* Home sections and Python Training */
+.home-mode-section { margin-top:30px; }
+.home-section-title,.section-label { margin:0 0 11px; color:var(--text); font-size:.78rem; font-weight:800; letter-spacing:.14em; }
+.home-section-title span { color:var(--cyan); margin-right:8px; }
+.wide-card { grid-column:1 / -1; }
+.python-home-section { padding:20px; border:1px solid rgba(70,230,245,.35); background:linear-gradient(135deg,rgba(70,230,245,.07),transparent 65%); }
+.python-training-card { border-color:var(--cyan); }
+.python-training-card strong,.progress-card strong { color:var(--cyan); }
+.training-page,.progress-page { padding:24px; }
+.training-shell,.progress-shell { width:min(100%,980px); margin:0 auto; position:relative; }
+.training-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:42px; }
+.training-header .back-link { margin:0; }
+.progress-link { color:var(--cyan); text-decoration:none; font-size:.75rem; font-weight:800; letter-spacing:.12em; }
+.training-title { font-size:clamp(3.5rem,10vw,7rem); }
+.training-copy { color:var(--muted); margin:24px 0; }
+.skill-map { display:grid; grid-template-columns:repeat(5,1fr); gap:9px; }
+.skill-card,.challenge-button { border:1px solid var(--line); color:var(--text); background:rgba(18,23,28,.9); font:inherit; cursor:pointer; transition:border-color .15s,transform .15s,background .15s; }
+.skill-card { min-height:142px; padding:17px 12px; display:flex; flex-direction:column; align-items:flex-start; justify-content:space-between; text-align:left; }
+.skill-card:hover,.challenge-button:hover { border-color:var(--cyan); transform:translateY(-3px); background:#162127; }
+.skill-card span { color:var(--muted); font-size:.72rem; font-weight:800; letter-spacing:.1em; }
+.skill-card strong { color:var(--lime); font-size:1.2rem; letter-spacing:.03em; white-space:nowrap; }
+.skill-card small { color:var(--muted); font-size:.62rem; }
+.challenge-button { width:100%; margin-top:12px; min-height:90px; padding:18px; display:flex; flex-direction:column; gap:7px; text-align:left; border-color:#8a6cf2; }
+.challenge-button span { color:#c4b5fd; font-size:.68rem; letter-spacing:.12em; }
+.challenge-button strong { font-size:1.25rem; }
+.lesson-hud { display:grid; grid-template-columns:repeat(3,1fr); padding-bottom:16px; border-bottom:1px solid var(--line); }
+.lesson-hud div { display:flex; flex-direction:column; gap:5px; }
+.lesson-hud div:nth-child(2) { text-align:center; }.lesson-hud div:nth-child(3) { text-align:right; }
+.lesson-hud span,.exercise-label,.answer-label,.training-result-grid span,.progress-summary span { color:var(--muted); font-size:.68rem; font-weight:800; letter-spacing:.13em; }
+.lesson-hud strong { font-size:1.2rem; }.lesson-hud div:last-child strong { color:var(--lime); }
+.lesson-card { margin-top:28px; padding:28px; border:1px solid var(--line); background:rgba(18,23,28,.92); }
+.exercise-label { display:flex; justify-content:space-between; margin:0 0 20px; }.exercise-label span:first-child { color:var(--cyan); }
+.lesson-card h2 { max-width:820px; margin:0 0 20px; font-size:clamp(1.25rem,3vw,2rem); line-height:1.45; }
+.code-sample { margin:18px 0; padding:20px; overflow-x:auto; border-left:3px solid var(--cyan); background:#090c0f; color:#dffbff; font:1rem/1.65 Consolas,"Cascadia Code",monospace; white-space:pre-wrap; }
+.answer-label { display:block; margin:22px 0 8px; }
+#code-answer { width:100%; resize:vertical; padding:17px; border:1px solid var(--line); outline:none; color:var(--text); background:#090c0f; font:1rem/1.55 Consolas,"Cascadia Code",monospace; tab-size:4; }
+#code-answer:focus { border-color:var(--cyan); box-shadow:0 0 0 2px rgba(70,230,245,.1); }
+.training-feedback { min-height:24px; margin:13px 0; color:var(--muted); font-size:.78rem; font-weight:800; letter-spacing:.08em; }
+.answer-text { color:#c4b5fd; }
+.learning-box { margin:12px 0; padding:13px 15px; border-left:3px solid var(--cyan); background:#101b20; }
+.learning-box strong { color:var(--cyan); font-size:.7rem; letter-spacing:.12em; }.learning-box p { margin:5px 0 0; line-height:1.55; }
+.explanation-box { border-color:var(--lime); }.explanation-box strong { color:var(--lime); }
+.lesson-actions { display:flex; flex-wrap:wrap; gap:9px; margin-top:18px; }
+.action-button { min-width:120px; padding:13px 18px; border:1px solid var(--line); color:var(--text); background:var(--panel); font:inherit; font-size:.75rem; font-weight:800; letter-spacing:.1em; cursor:pointer; }
+.action-button:disabled { opacity:.35; cursor:not-allowed; }.primary-action { border-color:var(--cyan); color:var(--cyan); }.danger-action { border-color:var(--red); color:var(--red); }
+.complete-screen { padding-top:40px; }.complete-screen h1,.progress-shell h1 { font-size:clamp(4rem,11vw,7rem); }
+.training-result-grid,.progress-summary { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; margin:30px 0; border:1px solid var(--line); background:var(--line); }
+.training-result-grid div,.progress-summary div { padding:20px; background:var(--panel); }.training-result-grid strong,.progress-summary strong { display:block; margin-top:8px; font-size:1.5rem; }
+.complete-actions { display:flex; flex-wrap:wrap; align-items:center; gap:18px; }.complete-actions .back-link { margin:0; }.start-button { border:0; cursor:pointer; }
+.progress-summary { grid-template-columns:repeat(3,1fr); }.progress-skills { border-top:1px solid var(--line); }
+.progress-skill-row { display:grid; grid-template-columns:1fr auto 70px; align-items:center; gap:20px; padding:18px 4px; border-bottom:1px solid var(--line); }
+.progress-skill-row div { display:flex; flex-direction:column; gap:4px; }.progress-skill-row div span { color:var(--muted); font-size:.68rem; }.progress-skill-row p { margin:0; color:var(--lime); letter-spacing:.08em; }.progress-skill-row > strong { text-align:right; color:var(--cyan); }
+.load-error { grid-column:1 / -1; color:var(--red); }
+@media (max-width:760px) { .skill-map { grid-template-columns:repeat(2,1fr); }.training-result-grid { grid-template-columns:repeat(2,1fr); }.lesson-card { padding:20px; } }
+@media (max-width:560px) { .training-page,.progress-page { padding:18px; }.wide-card { grid-column:auto; }.python-home-section { padding:14px; }.skill-map { grid-template-columns:1fr; }.skill-card { min-height:100px; }.training-header { margin-bottom:28px; }.lesson-hud strong { font-size:.9rem; }.lesson-card { padding:16px; }.progress-summary { grid-template-columns:1fr; }.progress-skill-row { grid-template-columns:1fr auto; }.progress-skill-row p { grid-row:2; }.action-button { flex:1; } }
