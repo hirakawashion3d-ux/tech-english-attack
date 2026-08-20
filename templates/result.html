@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ja">
 <head>
   <meta charset="utf-8">
@@ -17,7 +17,10 @@
       <div><span>ACCURACY</span><strong id="accuracy">0%</strong></div>
       <div><span>MAX COMBO</span><strong id="max-combo">0</strong></div>
     </div>
-    <section class="wrong-words-panel"><h2>WRONG WORDS</h2><ul id="wrong-words"><li>NO DATA</li></ul></section>
+    <section class="wrong-words-panel">
+      <h2>WRONG QUESTIONS</h2>
+      <ul id="wrong-words"><li>NO DATA</li></ul>
+    </section>
     <a id="retry-link" class="start-button small" href="{{ url_for('game') }}">RETRY <span>▶</span></a>
     <a class="back-link" href="{{ url_for('home') }}">← HOME</a>
   </main>
@@ -30,11 +33,34 @@
       document.getElementById("accuracy").textContent = result.accuracy + "%";
       document.getElementById("max-combo").textContent = result.maxCombo;
       document.getElementById("retry-link").href = "{{ url_for('game') }}?mode=" + result.mode + "&level=" + result.level;
-      const list = document.getElementById("wrong-words"); list.innerHTML = "";
-      if (result.wrongWords.length === 0) list.innerHTML = "<li>PERFECT RUN</li>";
-      result.wrongWords.forEach((item) => { const li = document.createElement("li"); li.textContent = item.word + " — " + item.answer; list.appendChild(li); });
+
+      const list = document.getElementById("wrong-words");
+      list.innerHTML = "";
+      if (result.wrongWords.length === 0) {
+        list.innerHTML = "<li>PERFECT RUN</li>";
+      }
+
+      result.wrongWords.forEach((item) => {
+        const li = document.createElement("li");
+        const prompt = document.createElement("p");
+        prompt.className = "wrong-prompt";
+        prompt.textContent = item.type === "sentence" ? item.sentence : item.word;
+
+        const answer = document.createElement("p");
+        answer.className = "wrong-answer";
+        answer.textContent = "正解: " + item.answer;
+        li.appendChild(prompt);
+        li.appendChild(answer);
+
+        if (item.type === "sentence" && item.keywords) {
+          const keywords = document.createElement("p");
+          keywords.className = "wrong-keywords";
+          keywords.textContent = item.keywords.join(" / ");
+          li.appendChild(keywords);
+        }
+        list.appendChild(li);
+      });
     }
   </script>
 </body>
 </html>
-

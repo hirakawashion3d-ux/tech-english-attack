@@ -1,5 +1,6 @@
 const settings = {
   standard: { seconds: 60, name: "WORD ATTACK" },
+  sentence: { seconds: 60, name: "SENTENCE MODE" },
   sprint: { seconds: 30, name: "SPRINT MODE" },
   marathon: { seconds: 120, name: "MARATHON MODE" },
   review: { seconds: 60, name: "REVIEW MODE" }
@@ -8,6 +9,8 @@ const levelLabels = { basic: "BASIC", core: "CORE", advanced: "ADVANCED", mixed:
 const mode = new URLSearchParams(window.location.search).get("mode") || "standard";
 const level = new URLSearchParams(window.location.search).get("level") || "mixed";
 const gameSettings = settings[mode] || settings.standard;
+const wordApiUrl = "static/questions.json";
+const sentenceApiUrl = "static/sentences.json";
 
 let questions = [], questionIndex = 0, score = 0, combo = 0, maxCombo = 0;
 let correct = 0, wrong = 0, wrongWords = [], canAnswer = false, gameEnded = false;
@@ -25,13 +28,15 @@ aSyncStart();
 
 async function aSyncStart() {
   try {
-    document.getElementById("mode-name").textContent = mode === "standard" ? levelLabels[level] + " LEVEL" : gameSettings.name;
+    const modeName = mode === "standard" ? levelLabels[level] + " LEVEL" : gameSettings.name;
+    document.getElementById("mode-name").textContent = mode === "sentence" ? modeName + " / " + levelLabels[level] : modeName;
     if (mode === "review") {
       const lastResult = JSON.parse(sessionStorage.getItem("techEnglishAttackResult") || "null");
       questions = lastResult ? lastResult.wrongWords : [];
       if (questions.length === 0) throw new Error("No review data");
     } else {
-      const response = await fetch("static/questions.json");
+      const apiUrl = mode === "sentence" ? sentenceApiUrl : wordApiUrl;
+      const response = await fetch(apiUrl);
       questions = await response.json();
       // This filter also makes the same JavaScript work on GitHub Pages.
       if (level !== "mixed") questions = questions.filter((question) => question.level === level);
@@ -40,7 +45,7 @@ async function aSyncStart() {
     showQuestion();
     timerId = setInterval(updateTimer, 100);
   } catch (error) {
-    wordElement.textContent = "NO REVIEW DATA";
+    wordElement.textContent = "NO QUESTIONS";
     feedbackElement.textContent = "PLAY A TRAINING MODE FIRST";
   }
 }
@@ -56,7 +61,9 @@ function showQuestion() {
   if (questionIndex >= questions.length) { questionIndex = 0; questions.sort(() => Math.random() - 0.5); }
   const question = questions[questionIndex];
   numberElement.textContent = String(questionIndex + 1).padStart(2, "0");
-  wordElement.textContent = question.word;
+  const questionText = question.type === "sentence" ? question.sentence : question.word;
+  wordElement.textContent = questionText;
+  document.body.classList.toggle("sentence-mode", question.type === "sentence");
   feedbackElement.textContent = "CHOOSE THE MEANING";
   feedbackElement.className = "feedback";
   choicesElement.innerHTML = "";
@@ -87,7 +94,8 @@ function answerQuestion(choice, question, selectedButton) {
     buttons.forEach((button) => { if (button.textContent.includes(question.answer)) button.classList.add("correct"); });
     feedbackElement.textContent = `ANSWER: ${question.answer}`;
     feedbackElement.className = "feedback wrong-text";
-    setTimeout(nextQuestion, 700);
+    const nextDelay = question.type === "sentence" ? 1100 : 700;
+    setTimeout(nextQuestion, nextDelay);
   }
   scoreElement.textContent = score; comboElement.textContent = combo;
 }

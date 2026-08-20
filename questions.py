@@ -104,3 +104,6 @@ advanced_questions = [
 
 # all_questions is used by both the Flask API and the GitHub Pages build script.
 all_questions = questions + advanced_questions
+
+for question in all_questions:
+    question["type"] = "word"
