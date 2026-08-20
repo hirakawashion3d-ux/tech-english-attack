@@ -34,8 +34,14 @@
 
     <section class="home-mode-section python-home-section">
       <p class="home-section-title"><span>03</span> PYTHON TRAINING</p>
+      <p class="home-course-copy">難易度別の60秒コース。正解で時間を増やし、コンボで目標スコアを超えよう。</p>
+      <div class="home-course-strip">
+        <a href="python-training.html?course=3000"><strong>3,000 COURSE</strong><small>BASIC / BEST <span id="home-best-3000">0</span></small></a>
+        <a href="python-training.html?course=5000"><strong>5,000 COURSE</strong><small>CORE / BEST <span id="home-best-5000">0</span></small></a>
+        <a href="python-training.html?course=10000"><strong>10,000 COURSE</strong><small>ADVANCED / BEST <span id="home-best-10000">0</span></small></a>
+      </div>
       <div class="mode-grid">
-        <a class="mode-card python-training-card" href="python-training.html"><span>TYPE / FILL / PREDICT / FIX / BUILD</span><strong>START TRAINING</strong><small>5 QUESTIONS / FREE SKILL SELECT</small></a>
+        <a class="mode-card python-training-card" href="python-training.html"><span>LEARN / PRACTICE / SCORE ATTACK</span><strong>PYTHON TRAINING</strong><small>UNLIMITED COURSE + 5 QUESTION PRACTICE</small></a>
         <a class="mode-card progress-card" href="progress.html"><span>XP / ACCURACY / STARS</span><strong>VIEW PROGRESS</strong><small id="python-home-progress">NO TRAINING DATA</small></a>
       </div>
     </section>
@@ -59,6 +65,11 @@
     if (pythonProgress) {
       document.getElementById("python-home-progress").textContent = pythonProgress.totalXp + " XP / " + pythonProgress.totalTraining + " SESSIONS";
     }
+    const courseResults = JSON.parse(localStorage.getItem("techEnglishCourseResults") || "{}");
+    ["3000", "5000", "10000"].forEach((courseId) => {
+      const bestScore = courseResults[courseId] ? courseResults[courseId].bestScore : 0;
+      document.getElementById("home-best-" + courseId).textContent = bestScore.toLocaleString();
+    });
   </script>
 </body>
 </html>

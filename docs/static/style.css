@@ -71,3 +71,26 @@ body::before { content:""; position:fixed; inset:0; pointer-events:none; opacity
 .load-error { grid-column:1 / -1; color:var(--red); }
 @media (max-width:760px) { .skill-map { grid-template-columns:repeat(2,1fr); }.training-result-grid { grid-template-columns:repeat(2,1fr); }.lesson-card { padding:20px; } }
 @media (max-width:560px) { .training-page,.progress-page { padding:18px; }.wide-card { grid-column:auto; }.python-home-section { padding:14px; }.skill-map { grid-template-columns:1fr; }.skill-card { min-height:100px; }.training-header { margin-bottom:28px; }.lesson-hud strong { font-size:.9rem; }.lesson-card { padding:16px; }.progress-summary { grid-template-columns:1fr; }.progress-skill-row { grid-template-columns:1fr auto; }.progress-skill-row p { grid-row:2; }.action-button { flex:1; } }
+/* Sushi-style XP course goals: these are learning points, not prices. */
+.course-select { margin:30px 0; padding:20px; border:1px solid var(--line); background:rgba(9,12,15,.55); }
+.course-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.course-card { min-height:135px; padding:17px; border:1px solid var(--line); color:var(--text); background:var(--panel); font:inherit; text-align:left; display:flex; flex-direction:column; gap:9px; justify-content:space-between; }
+button.course-card { cursor:pointer; transition:border-color .15s,transform .15s; }
+button.course-card:hover { transform:translateY(-3px); border-color:var(--cyan); }
+.course-card.selected { border-color:var(--cyan); box-shadow:inset 0 0 0 1px var(--cyan); }
+.course-card.achieved { border-color:var(--lime); background:linear-gradient(135deg,rgba(201,246,91,.1),var(--panel)); }
+.course-card > span,.course-card small,.complete-course span { color:var(--muted); font-size:.65rem; letter-spacing:.1em; }
+.course-card > strong { font-size:1.1rem; color:var(--cyan); }.course-card.achieved > strong { color:var(--lime); }
+.course-progress-track { width:100%; height:6px; overflow:hidden; background:#07090b; border:1px solid var(--line); }
+.course-progress-track > span { display:block; width:0; height:100%; background:linear-gradient(90deg,var(--cyan),var(--lime)); transition:width .25s; }
+.course-note { margin:12px 0 0; color:var(--muted); font-size:.72rem; }.skill-select-label { margin-top:24px; }
+.lesson-hud { grid-template-columns:repeat(4,1fr); }.lesson-hud div:nth-child(3) { text-align:center; }.lesson-hud div:nth-child(4) { text-align:right; }
+.complete-course { margin:0 0 28px; padding:18px; border:1px solid var(--line); background:var(--panel); }
+.complete-course > div:first-child { display:flex; justify-content:space-between; margin-bottom:12px; }.complete-course p { margin:10px 0 0; color:var(--muted); font-size:.76rem; }
+.progress-course-section { margin:35px 0; }.progress-course-grid .course-card { min-height:125px; }
+@media (max-width:760px) { .course-grid { grid-template-columns:1fr; }.course-card { min-height:105px; }.lesson-hud { grid-template-columns:repeat(2,1fr); gap:15px; }.lesson-hud div,.lesson-hud div:nth-child(2),.lesson-hud div:nth-child(3),.lesson-hud div:nth-child(4) { text-align:left; } }
+.home-course-copy { margin:0 0 12px; color:var(--muted); font-size:.78rem; line-height:1.5; }
+.home-course-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:10px; }
+.home-course-strip a { padding:13px; border:1px solid var(--line); color:var(--text); background:#0d1216; text-decoration:none; display:flex; flex-direction:column; gap:5px; }
+.home-course-strip a:hover { border-color:var(--cyan); }.home-course-strip strong { color:var(--cyan); }.home-course-strip small { color:var(--muted); font-size:.6rem; letter-spacing:.08em; }
+@media (max-width:560px) { .home-course-strip { grid-template-columns:1fr; } }

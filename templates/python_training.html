@@ -14,9 +14,18 @@
     </header>
 
     <section id="skill-screen">
-      <p class="eyebrow">TYPE / THINK / FIX / REPEAT</p>
+      <p class="eyebrow">LEARN / PRACTICE / SCORE ATTACK</p>
       <h1 class="training-title">PYTHON<br><span>TRAINING</span></h1>
-      <p class="training-copy">好きなSkillから5問。すべて最初から選べます。</p>
+
+      <section class="course-select" aria-labelledby="course-title">
+        <p id="course-title" class="section-label">PYTHON SCORE COURSES</p>
+        <p class="training-copy">難易度を選び、時間内にコードを打ち続けます。問題数とスコアに上限はありません。</p>
+        <div id="course-grid" class="course-grid"></div>
+        <p class="course-note">正解すると時間が少し増えます。コンボをつなぐほど1問の得点が上がります。</p>
+      </section>
+
+      <p class="section-label skill-select-label">5 QUESTION PRACTICE</p>
+      <p class="training-copy">通常練習は好きなSkillから5問。すべて最初から選べます。</p>
       <div id="skill-map" class="skill-map"></div>
       <button id="challenge-button" class="challenge-button" type="button">
         <span>10 QUESTIONS / ALL SKILLS</span><strong>CHALLENGE MODE</strong>
@@ -25,9 +34,10 @@
 
     <section id="lesson-screen" class="lesson-screen hidden">
       <header class="lesson-hud">
-        <div><span>SKILL</span><strong id="lesson-skill">VARIABLES</strong></div>
-        <div><span>PROGRESS</span><strong id="lesson-progress">1 / 5</strong></div>
-        <div><span>SESSION XP</span><strong id="session-xp">0</strong></div>
+        <div><span id="hud-label-one">SKILL</span><strong id="lesson-skill">VARIABLES</strong></div>
+        <div><span id="hud-label-two">PROGRESS</span><strong id="lesson-progress">1 / 5</strong></div>
+        <div><span id="hud-label-three">SESSION XP</span><strong id="session-xp">0</strong></div>
+        <div><span id="hud-label-four">MODE</span><strong id="active-course">PRACTICE</strong></div>
       </header>
       <div class="lesson-card">
         <p class="exercise-label"><span id="exercise-type">BUILD</span><span id="difficulty">LEVEL 1</span></p>
@@ -48,16 +58,21 @@
     </section>
 
     <section id="complete-screen" class="complete-screen hidden">
-      <p class="eyebrow">TRAINING COMPLETE</p>
+      <p id="complete-eyebrow" class="eyebrow">TRAINING COMPLETE</p>
       <h1>COMPLETE</h1>
       <div class="training-result-grid">
-        <div><span>ACCURACY</span><strong id="complete-accuracy">0%</strong></div>
-        <div><span>ATTEMPTS</span><strong id="complete-attempts">0</strong></div>
-        <div><span>HINTS</span><strong id="complete-hints">0</strong></div>
-        <div><span>SKILL XP</span><strong id="complete-xp">0</strong></div>
+        <div><span id="complete-label-one">ACCURACY</span><strong id="complete-accuracy">0%</strong></div>
+        <div><span id="complete-label-two">ATTEMPTS</span><strong id="complete-attempts">0</strong></div>
+        <div><span id="complete-label-three">HINTS</span><strong id="complete-hints">0</strong></div>
+        <div><span id="complete-label-four">SKILL XP</span><strong id="complete-xp">0</strong></div>
       </div>
+      <section id="complete-course" class="complete-course hidden">
+        <div><span id="complete-course-name">3,000 SCORE COURSE</span><strong id="complete-course-status">0 / 3,000</strong></div>
+        <div class="course-progress-track"><span id="complete-course-bar"></span></div>
+        <p id="complete-course-message">あと3,000点でコースクリア</p>
+      </section>
       <div class="complete-actions">
-        <button id="train-again-button" class="start-button small" type="button">TRAIN AGAIN <span>→</span></button>
+        <button id="train-again-button" class="start-button small" type="button">SELECT MODE <span>→</span></button>
         <a class="back-link" href="{{ url_for('progress') }}">VIEW PROGRESS</a>
       </div>
     </section>
