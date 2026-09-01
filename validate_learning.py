@@ -4,6 +4,7 @@ import ast
 
 from learning import english_concepts, learning_modules, python_concepts
 from toeic_lessons import toeic_goal, toeic_lessons, toeic_months
+from english_textbook import textbook_lessons, textbook_levels
 
 REQUIRED_KEYS = {
     "id", "module", "title", "summary", "example", "explanation", "why",
@@ -54,6 +55,19 @@ def validate_learning_data():
         if not lesson["sentence"].endswith(".") or len(lesson["chunks"]) < 3:
             errors.append(f"Incomplete TOEIC lesson: {lesson['id']}")
 
+    textbook_ids = [lesson["id"] for lesson in textbook_lessons]
+    if len(textbook_levels) != 3 or len(textbook_lessons) != 36:
+        errors.append("English textbook must contain 3 levels and 36 lessons")
+    if len(textbook_ids) != len(set(textbook_ids)):
+        errors.append("Duplicate English textbook lesson id")
+    for level in textbook_levels:
+        level_lessons = [lesson for lesson in textbook_lessons if lesson["level"] == level["id"]]
+        if len(level_lessons) != 12:
+            errors.append(f"Textbook level {level['id']} must contain 12 lessons")
+    for lesson in textbook_lessons:
+        if len(lesson["words"]) < 6 or len(lesson["chunks"]) < 3:
+            errors.append(f"Incomplete textbook lesson: {lesson['id']}")
+
     if errors:
         raise ValueError("\n".join(errors))
     return {
@@ -61,6 +75,7 @@ def validate_learning_data():
         "english_concepts": len(english_concepts),
         "modules": len(learning_modules),
         "toeic_lessons": len(toeic_lessons),
+        "textbook_lessons": len(textbook_lessons),
     }
 
 

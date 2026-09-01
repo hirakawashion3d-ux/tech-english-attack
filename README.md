@@ -66,6 +66,28 @@ python validate_learning.py
 python build_site.py
 ```
 
+## 英語の教科書（小学・中学・高校）
+
+`/textbook` は、単語や `the`、`is` から学び直すための0スタート用教科書です。小学英語・中学英語・高校英語を各12レッスン、合計36レッスン用意しています。各レッスンには最低6語の単語があり、次の順で学びます。
+
+1. **WORDS** — 例文を読む前に必要な単語を覚える。
+2. **GRAMMAR & CONNECTION** — `the`、`is`、`and` など、単語をつなぐ働きを知る。
+3. **EXAMPLE** — 短い例文を読む。
+4. **BREAK DOWN** — 文を小さなかたまりに分ける。
+5. **YOUR JAPANESE** — 自分の日本語で意味を書いてから解釈例を見る。
+6. **ENGLISH IMAGE** — 最後に英文を見直し、場面を英語のままイメージする。
+
+小学英語では基本単語、`I / you`、`am / is / are`、`a / an / the`、前置詞、基本動詞、接続詞、疑問詞を扱います。中学英語では一般動詞、時制、助動詞、比較、受け身、現在完了、関係代名詞へ進みます。高校英語では文型、節、分詞、条件文、長文の骨組み、TOEIC・技術英文の読み方を扱います。
+
+教材データは `english_textbook.py`、画面の順番と進捗保存は `static/textbook.js` にあります。完了レッスン、自分の和訳、途中のSTEPはブラウザのlocalStorageへ保存されます。
+
+変更後は教材データを確認してGitHub Pages版を作り直します。
+
+```bash
+python validate_learning.py
+python build_site.py
+```
+
 ## Python Training
 
 Python Trainingは、答えを眺める教材ではなく、英語を読む → Pythonを考える → 入力する → 間違いを修正する、を短時間で反復する練習場です。
@@ -130,7 +152,7 @@ docs/static/python_lessons.json
 GitHub Pages
 ```
 
-WORD問題は `questions.json`、Sentence問題は `sentences.json`、Python Training問題は `python_lessons.json`、TOEIC教材は `toeic.json` として `docs/static` へ出力されます。Pythonの教材データを変更したら、commit前に次を実行してください。
+WORD問題は `questions.json`、Sentence問題は `sentences.json`、Python Training問題は `python_lessons.json`、TOEIC教材は `toeic.json`、英語教科書は `textbook.json` として `docs/static` へ出力されます。Pythonの教材データを変更したら、commit前に次を実行してください。
 
 ```bash
 python build_site.py
@@ -143,19 +165,26 @@ python build_site.py
 3. `learning/catalog.py` — Python LEARNのModuleと153 Concept
 4. `learning/english.py` — Tech English LEARNの40 Concept
 5. `toeic_lessons.py` — TOEICの12か月目標と48 Reading Lesson
-6. `static/toeic.js` — 4段階表示、自分の解釈、進捗保存
-7. `static/learn.js` — Module/Concept表示、RUN、進捗、Bookmark
-8. `python_lessons.py` — Python Trainingの50問
-9. `templates/` — 画面のHTML
-10. `static/training.js` — 5問セッション、入力判定、XP保存
-11. `static/progress.js` — Accuracyと星の表示
-12. `static/game.js` — 既存WORD/SENTENCEゲーム
-13. `static/style.css` — ダークHUDデザイン
-14. `build_site.py` — GitHub Pages用ファイルの生成
+6. `english_textbook.py` — 小学・中学・高校の36レッスンと単語
+7. `static/textbook.js` — 教科書表示、自分の和訳、進捗保存
+8. `static/toeic.js` — 4段階表示、自分の解釈、進捗保存
+9. `static/learn.js` — Module/Concept表示、RUN、進捗、Bookmark
+10. `python_lessons.py` — Python Trainingの50問
+11. `templates/` — 画面のHTML
+12. `static/training.js` — 5問セッション、入力判定、XP保存
+13. `static/progress.js` — Accuracyと星の表示
+14. `static/game.js` — 既存WORD/SENTENCEゲーム
+15. `static/style.css` — ダークHUDデザイン
+16. `build_site.py` — GitHub Pages用ファイルの生成
 
 ## Python学習ポイント
 
 - **import**: `app.py` と `build_site.py` が `python_lessons.py` と `toeic_lessons.py` のlistを読み込みます。
+- **別ファイルからimport**: `app.py` が `english_textbook.py` からレベルとレッスンのlistを読み込みます。
+- **listのフィルタリング**: `validate_learning.py` と `static/textbook.js` は、指定したレベルに合うレッスンだけをlistから取り出します。
+- **dictionaryのキー**: 各レッスンに `level`、`words`、`grammar`、`chunks` などのキーを持たせ、表示内容を整理します。
+- **新しいAPI route**: `app.py` の `get_textbook_content()` が3レベルと36レッスンをJSONで返します。
+- **ifによる分岐**: `static/textbook.js` がURLを確認し、教科書トップ・レベル一覧・個別レッスンの表示を分けます。
 - **list / dictionary**: `toeic_lessons.py` は48レッスンをlistで持ち、各レッスンをdictionaryとして保存します。
 - **function**: `make_lesson()` は受け取った英文や分解データから、1レッスン分のdictionaryを作ってreturnします。
 - **list**: 50問を順番に保持し、条件に合う問題を新しいlistへ取り出します。

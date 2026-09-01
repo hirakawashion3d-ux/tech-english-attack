@@ -190,3 +190,36 @@ button.course-card:hover { transform:translateY(-3px); border-color:var(--cyan);
 .toeic-scene span { color:var(--cyan); }
 @media (max-width:700px) { .toeic-months { grid-template-columns:1fr; }.toeic-method { grid-template-columns:repeat(2,1fr); }.toeic-method .section-label { grid-column:1 / -1; }.toeic-continue { grid-template-columns:1fr; }.toeic-continue b { justify-self:start; }.toeic-step-nav { grid-template-columns:repeat(2,1fr); } }
 @media (max-width:520px) { .toeic-page { padding:16px; }.toeic-header { align-items:flex-start; flex-direction:column; margin-bottom:30px; }.toeic-goal-hero,.toeic-study-step { padding:19px; }.toeic-goal-stats { grid-template-columns:1fr; }.toeic-method { grid-template-columns:1fr; }.toeic-chunk { grid-template-columns:1fr; }.toeic-chunk span { grid-column:auto; }.toeic-step-nav { grid-template-columns:1fr 1fr; } }
+/* English Textbook: vocabulary first, then grammar and reading. */
+.textbook-page { padding:24px; }
+.textbook-shell { width:min(100%,980px); margin:0 auto; }
+.textbook-home-card { border-color:#f6bf5b; background:linear-gradient(135deg,rgba(246,191,91,.13),#11171b); }
+.textbook-home-card strong { color:#f6bf5b; font-size:1.15rem; }
+.textbook-title { margin:18px 0; font-size:clamp(3.8rem,11vw,7rem); line-height:.82; letter-spacing:-.06em; }
+.textbook-title span { color:#f6bf5b; }
+.textbook-level-title { margin:14px 0; font-size:clamp(3rem,9vw,5.8rem); line-height:.9; }
+.textbook-level-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:32px 0; }
+.textbook-level-card { min-height:250px; padding:24px; border:1px solid var(--line); color:var(--text); background:var(--panel); text-decoration:none; display:flex; flex-direction:column; gap:12px; }
+.textbook-level-card:hover { border-color:#f6bf5b; transform:translateY(-2px); }
+.textbook-level-card > span,.textbook-level-card small { color:#f6bf5b; font-size:.68rem; font-weight:800; letter-spacing:.08em; }
+.textbook-level-card strong { margin-top:auto; font-size:clamp(1.7rem,4vw,2.5rem); }
+.textbook-level-card p { min-height:3.4em; color:var(--muted); line-height:1.7; }
+.textbook-continue,.toeic-foundation-link { margin:18px 0; padding:18px; border-left:4px solid #f6bf5b; color:var(--text); background:#12100b; text-decoration:none; display:grid; grid-template-columns:105px 1fr auto; align-items:center; gap:14px; }
+.textbook-continue span,.toeic-foundation-link span { color:#f6bf5b; font-size:.68rem; font-weight:800; letter-spacing:.08em; }
+.textbook-continue b,.toeic-foundation-link b { color:#f6bf5b; }
+.textbook-study-flow { display:grid; grid-template-columns:repeat(5,1fr); gap:1px; margin:32px 0 70px; border:1px solid var(--line); background:var(--line); }
+.textbook-study-flow .section-label { grid-column:1/-1; padding:14px 16px 4px; background:#0b0d10; }
+.textbook-study-flow div { padding:16px; background:var(--panel); display:flex; flex-direction:column; gap:6px; }
+.textbook-study-flow b { color:#f6bf5b; }.textbook-study-flow small { color:var(--muted); }
+.textbook-lesson-list { margin:25px 0 70px; border:1px solid var(--line); }
+.textbook-lesson-row { min-height:78px; padding:14px 18px; border-bottom:1px solid var(--line); color:var(--text); text-decoration:none; display:grid; grid-template-columns:46px 1fr auto; align-items:center; gap:14px; }
+.textbook-lesson-row:last-child { border:0; }.textbook-lesson-row:hover { background:#171a18; }
+.textbook-lesson-row > span,.textbook-lesson-row > b { color:#f6bf5b; font-size:.68rem; }.textbook-lesson-row div { display:flex; flex-direction:column; gap:5px; }.textbook-lesson-row small { color:var(--muted); line-height:1.45; }
+.textbook-lesson { width:min(100%,840px); margin:0 auto; }.textbook-lesson > header { margin-bottom:28px; }.textbook-lesson > header h1 { font-size:clamp(2.6rem,8vw,5rem); line-height:.95; }
+.textbook-section { margin-bottom:16px; padding:28px; scroll-margin-top:20px; border:1px solid var(--line); background:rgba(18,23,28,.94); }
+.textbook-words { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:18px 0; }.textbook-words div { padding:15px; background:#090c0f; display:flex; flex-direction:column; gap:6px; }.textbook-words strong { color:#f6bf5b; font-size:1.05rem; }.textbook-words span { color:var(--muted); }
+.textbook-explanation { color:#dce4e8; font-size:1.05rem; line-height:1.9; }.textbook-chunks { display:grid; gap:8px; }.textbook-chunk { padding:16px; border-left:3px solid #f6bf5b; background:#090c0f; display:grid; grid-template-columns:1.2fr 1fr; gap:6px 18px; }.textbook-chunk strong { color:#f6bf5b; }.textbook-chunk small { grid-column:1/-1; color:var(--muted); }
+#textbook-interpretation { width:100%; padding:17px; resize:vertical; border:1px solid var(--line); outline:none; color:var(--text); background:#080b0e; font:1rem/1.7 "Segoe UI","Noto Sans JP",sans-serif; }#textbook-interpretation:focus { border-color:#f6bf5b; }
+.textbook-image { border-color:#f6bf5b; background:radial-gradient(circle at 90% 10%,rgba(246,191,91,.12),transparent 22rem),rgba(18,23,28,.95); }
+@media (max-width:700px) { .textbook-level-grid { grid-template-columns:1fr; }.textbook-level-card { min-height:190px; }.textbook-study-flow { grid-template-columns:1fr 1fr; }.textbook-study-flow .section-label { grid-column:1/-1; }.textbook-continue,.toeic-foundation-link { grid-template-columns:1fr; }.textbook-words { grid-template-columns:1fr 1fr; } }
+@media (max-width:520px) { .textbook-page { padding:16px; }.textbook-section { padding:19px; }.textbook-study-flow,.textbook-words { grid-template-columns:1fr; }.textbook-lesson-row { grid-template-columns:36px 1fr; }.textbook-lesson-row > b { grid-column:2; }.textbook-chunk { grid-template-columns:1fr; }.textbook-chunk small { grid-column:auto; } }

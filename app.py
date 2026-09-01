@@ -9,6 +9,7 @@ from sentence_questions import sentence_questions
 from python_lessons import python_lessons
 from learning import all_learning_concepts, english_modules, learning_modules
 from toeic_lessons import toeic_goal, toeic_lessons, toeic_months
+from english_textbook import textbook_lessons, textbook_levels
 
 app = Flask(__name__)
 
@@ -58,6 +59,14 @@ def toeic(lesson_id=None):
     return render_template("toeic.html")
 
 
+@app.route("/textbook")
+@app.route("/textbook/<level_id>")
+@app.route("/textbook/<level_id>/<lesson_id>")
+def textbook(level_id=None, lesson_id=None):
+    """Render the English textbook shell."""
+    return render_template("textbook.html")
+
+
 @app.route("/api/learning")
 def get_learning_content():
     return jsonify({
@@ -73,6 +82,14 @@ def get_toeic_content():
         "goal": toeic_goal,
         "months": toeic_months,
         "lessons": toeic_lessons,
+    })
+
+
+@app.route("/api/textbook")
+def get_textbook_content():
+    return jsonify({
+        "levels": textbook_levels,
+        "lessons": textbook_lessons,
     })
 
 

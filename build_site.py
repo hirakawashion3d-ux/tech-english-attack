@@ -9,6 +9,7 @@ from sentence_questions import sentence_questions
 from python_lessons import python_lessons
 from learning import all_learning_concepts, english_modules, learning_modules
 from toeic_lessons import toeic_goal, toeic_lessons, toeic_months
+from english_textbook import textbook_lessons, textbook_levels
 
 ROOT = Path(__file__).parent
 DOCS = ROOT / "docs"
@@ -25,6 +26,7 @@ def make_static_html(template_name, output_name):
         "{{ url_for('static', filename='learn.js') }}": "static/learn.js",
         "{{ url_for('static', filename='glossary.js') }}": "static/glossary.js",
         "{{ url_for('static', filename='toeic.js') }}": "static/toeic.js",
+        "{{ url_for('static', filename='textbook.js') }}": "static/textbook.js",
         "{{ url_for('home') }}": "index.html",
         "{{ url_for('game') }}": "game.html",
         "{{ url_for('python_training') }}": "python-training.html",
@@ -33,6 +35,7 @@ def make_static_html(template_name, output_name):
         "{{ url_for('learn') }}": "learn/index.html",
         "{{ url_for('glossary') }}": "glossary.html",
         "{{ url_for('toeic') }}": "toeic/index.html",
+        "{{ url_for('textbook') }}": "textbook/index.html",
     }
     for old_text, new_text in replacements.items():
         html = html.replace(old_text, new_text)
@@ -78,6 +81,24 @@ def build_toeic_pages():
         write_toeic_shell(DOCS / "toeic" / f"{lesson['id']}.html")
 
 
+def write_textbook_shell(output_path, prefix):
+    """Write one static textbook route backed by the shared textbook JSON."""
+    html = (ROOT / "templates" / "textbook.html").read_text(encoding="utf-8-sig")
+    html = html.replace("{{ url_for('static', filename='style.css') }}", prefix + "static/style.css")
+    html = html.replace("{{ url_for('static', filename='textbook.js') }}", prefix + "static/textbook.js")
+    html = html.replace("{{ url_for('home') }}", prefix + "index.html")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(html, encoding="utf-8")
+
+
+def build_textbook_pages():
+    write_textbook_shell(DOCS / "textbook" / "index.html", "../")
+    for level in textbook_levels:
+        write_textbook_shell(DOCS / "textbook" / level["id"] / "index.html", "../../")
+    for lesson in textbook_lessons:
+        write_textbook_shell(DOCS / "textbook" / lesson["level"] / f"{lesson['id']}.html", "../../")
+
+
 def build_site():
     """Rebuild the docs folder after editing Python questions or frontend files."""
     if DOCS.exists():
@@ -91,6 +112,7 @@ def build_site():
 
     shutil.copy2(ROOT / "static" / "toeic.js", DOCS / "static" / "toeic.js")
     javascript = (ROOT / "static" / "game.js").read_text(encoding="utf-8-sig")
+    shutil.copy2(ROOT / "static" / "textbook.js", DOCS / "static" / "textbook.js")
     javascript = javascript.replace('"/api/questions?level=" + level', '"static/questions.json"')
     javascript = javascript.replace('"/api/sentences?level=" + level', '"static/sentences.json"')
     javascript = javascript.replace('window.location.href = "/result"', 'window.location.href = "result.html"')
@@ -116,6 +138,11 @@ def build_site():
         json.dumps(toeic_data, ensure_ascii=False), encoding="utf-8"
     )
 
+    textbook_data = {"levels": textbook_levels, "lessons": textbook_lessons}
+    (DOCS / "static" / "textbook.json").write_text(
+        json.dumps(textbook_data, ensure_ascii=False), encoding="utf-8"
+    )
+
     make_static_html("index.html", "index.html")
     make_static_html("game.html", "game.html")
     make_static_html("result.html", "result.html")
@@ -124,6 +151,7 @@ def build_site():
     make_static_html("glossary.html", "glossary.html")
     build_learning_pages()
     build_toeic_pages()
+    build_textbook_pages()
     print("Created GitHub Pages files in docs/")
 
 if __name__ == "__main__":

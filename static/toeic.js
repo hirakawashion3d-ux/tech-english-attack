@@ -12,6 +12,10 @@ function toeicLessonUrl(lessonId) {
   return isStaticToeic ? toeicRoot + `toeic/${lessonId}.html` : `/toeic/${lessonId}`;
 }
 
+function textbookIndexUrl() {
+  return isStaticToeic ? toeicRoot + "textbook/index.html" : "/textbook";
+}
+
 function getToeicProgress() {
   const emptyProgress = { completed: [], steps: {}, interpretations: {}, lastLesson: null };
   try {
@@ -71,6 +75,7 @@ function renderDashboard() {
       <div class="toeic-goal-stats"><div><strong>${toeicData.goal.months}</strong><span>MONTHS</span></div><div><strong>${totalCount}</strong><span>LESSONS</span></div><div><strong>${completedCount}</strong><span>COMPLETE</span></div></div>
       <div class="toeic-progress-track"><span style="width:${percent}%"></span></div><small>${percent}% / 週4回を目安に、同じ英文を何度も見返して構いません。</small>
     </section>
+    <a class="toeic-foundation-link" href="${textbookIndexUrl()}"><span>THE / IS / WORDS が不安なら</span><strong>ENGLISH TEXTBOOKから始める</strong><b>→</b></a>
     <a class="toeic-continue" href="${toeicLessonUrl(continueLesson.id)}"><span>CONTINUE</span><strong>${escapeText(continueLesson.sentence)}</strong><b>START →</b></a>
     <section class="toeic-method"><p class="section-label">EVERY LESSON / 4 STEPS</p><div><span>01</span><strong>EXAMPLE</strong><small>まず英文を見る</small></div><div><span>02</span><strong>BREAK DOWN</strong><small>単語とかたまり</small></div><div><span>03</span><strong>YOUR JAPANESE</strong><small>自分で解釈する</small></div><div><span>04</span><strong>ENGLISH IMAGE</strong><small>英文で場面を描く</small></div></section>
     <section class="toeic-months">${monthCards}</section>

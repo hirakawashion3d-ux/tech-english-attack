@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ENGLISH TEXTBOOK | TECH ENGLISH ATTACK</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="textbook-page">
+  <main class="textbook-shell">
+    <header class="toeic-header">
+      <a class="back-link" href="{{ url_for('home') }}">← HOME</a>
+      <a id="textbook-index-link" class="progress-link" href="#">ENGLISH TEXTBOOK</a>
+    </header>
+    <div id="textbook-content"><p class="eyebrow">LOADING TEXTBOOK...</p></div>
+  </main>
+  <script src="{{ url_for('static', filename='textbook.js') }}"></script>
+</body>
+</html>

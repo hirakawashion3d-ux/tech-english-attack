@@ -16,6 +16,7 @@
       <a id="continue-learning" class="continue-learning-card" href="learn/index.html"><div><span>CONTINUE LEARNING</span><strong id="continue-title">START PYTHON</strong><small id="continue-meta">Pythonって何？ / 3 min</small></div><b>CONTINUE →</b></a>
       <div class="learn-home-grid">
         <a class="learn-home-card toeic-home-card" href="toeic/index.html"><span>START FROM ZERO</span><strong>TOEIC 0 → 500 / 600</strong><small id="toeic-home-progress">48 READING LESSONS</small></a>
+        <a class="learn-home-card textbook-home-card" href="textbook/index.html"><span>WORDS + GRAMMAR</span><strong>ENGLISH TEXTBOOK</strong><small id="textbook-home-progress">小学・中学・高校 / 36 LESSONS</small></a>
         <a class="learn-home-card" href="learn/index.html"><span>PYTHON COURSE</span><strong>LEARN PYTHON</strong><small>100+ CONCEPTS / NO LOCKS</small></a>
         <a class="learn-home-card" href="learn/english/index.html"><span>READ DOCUMENTS</span><strong>TECH ENGLISH</strong><small>CODE / ERROR / PHRASES</small></a>
         <a class="learn-home-card" href="glossary.html"><span>SEARCH</span><strong>GLOSSARY</strong><small>PYTHON × ENGLISH</small></a>
@@ -91,6 +92,10 @@
     const toeicProgress = JSON.parse(localStorage.getItem("techEnglishToeicProgress") || "null");
     if (toeicProgress && toeicProgress.completed) {
       document.getElementById("toeic-home-progress").textContent = toeicProgress.completed.length + " / 48 COMPLETE";
+    }
+    const textbookProgress = JSON.parse(localStorage.getItem("techEnglishTextbookProgress") || "null");
+    if (textbookProgress && textbookProgress.completed) {
+      document.getElementById("textbook-home-progress").textContent = textbookProgress.completed.length + " / 36 COMPLETE";
     }
   </script>
 </body>
