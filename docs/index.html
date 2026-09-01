@@ -15,6 +15,7 @@
       <p class="home-section-title"><span>LEARN</span> UNDERSTAND FIRST</p>
       <a id="continue-learning" class="continue-learning-card" href="learn/index.html"><div><span>CONTINUE LEARNING</span><strong id="continue-title">START PYTHON</strong><small id="continue-meta">Pythonって何？ / 3 min</small></div><b>CONTINUE →</b></a>
       <div class="learn-home-grid">
+        <a class="learn-home-card toeic-home-card" href="toeic/index.html"><span>ONE YEAR GOAL</span><strong>TOEIC 500 → 600</strong><small id="toeic-home-progress">48 READING LESSONS</small></a>
         <a class="learn-home-card" href="learn/index.html"><span>PYTHON COURSE</span><strong>LEARN PYTHON</strong><small>100+ CONCEPTS / NO LOCKS</small></a>
         <a class="learn-home-card" href="learn/english/index.html"><span>READ DOCUMENTS</span><strong>TECH ENGLISH</strong><small>CODE / ERROR / PHRASES</small></a>
         <a class="learn-home-card" href="glossary.html"><span>SEARCH</span><strong>GLOSSARY</strong><small>PYTHON × ENGLISH</small></a>
@@ -86,6 +87,10 @@
       document.getElementById("continue-learning").href = (staticHome ? "learn/" + last.module + "/" + last.concept + ".html" : "/learn/" + last.module + "/" + last.concept);
       document.getElementById("continue-title").textContent = last.moduleTitle + " / " + last.title;
       document.getElementById("continue-meta").textContent = last.minutes + " min / " + (learnProgress.states[last.module + "/" + last.concept] || "READ");
+    }
+    const toeicProgress = JSON.parse(localStorage.getItem("techEnglishToeicProgress") || "null");
+    if (toeicProgress && toeicProgress.completed) {
+      document.getElementById("toeic-home-progress").textContent = toeicProgress.completed.length + " / 48 COMPLETE";
     }
   </script>
 </body>

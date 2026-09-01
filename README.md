@@ -46,6 +46,26 @@ Conceptを開くとlocalStorageへ最後のページと状態（NEW / READ / TRI
 
 教材データは `learning/catalog.py` と `learning/english.py` にあります。追加後は `python validate_learning.py` でID・必須キー・Pythonサンプル構文を確認し、`python build_site.py` でGitHub Pages用の全学習ページを生成します。
 
+## TOEIC 500 → 600（1年目標）
+
+`/toeic` は、500点から600点を目指すための読解コースです。12か月・48レッスンを用意し、1か月ごとに4つの短いオリジナルTOEIC形式英文を学びます。スコア到達を保証する教材ではないため、公式問題集の時間を測った演習と組み合わせて使います。
+
+各レッスンは必ず次の4段階で進みます。
+
+1. **EXAMPLE** — 訳を見ずに英文を一度読む。
+2. **BREAK DOWN** — 主語・動作・対象・時や条件に分け、単語とかたまりを確認する。
+3. **YOUR JAPANESE** — 自分が理解した内容を日本語で入力してから解釈例を見る。
+4. **ENGLISH IMAGE** — 同じ例文をもう一度見て、日本語へ置き換えず場面を頭に描く。
+
+入力した日本語、現在のSTEP、完了したレッスンはブラウザのlocalStorageへ保存されます。月1は語順とbe動詞から始まり、月12では受け身・完了・条件を含む600点向けの文まで進みます。
+
+教材データは `toeic_lessons.py` にあります。`make_lesson()` の呼び出しを一つ追加すれば、英文、解釈例、分解、場面、読解ポイントを自分で増やせます。変更後は次を実行します。
+
+```bash
+python validate_learning.py
+python build_site.py
+```
+
 ## Python Training
 
 Python Trainingは、答えを眺める教材ではなく、英語を読む → Pythonを考える → 入力する → 間違いを修正する、を短時間で反復する練習場です。
@@ -110,7 +130,7 @@ docs/static/python_lessons.json
 GitHub Pages
 ```
 
-WORD問題は `questions.json`、Sentence問題は `sentences.json`、Python Training問題は `python_lessons.json` として `docs/static` へ出力されます。Pythonの問題データを変更したら、commit前に次を実行してください。
+WORD問題は `questions.json`、Sentence問題は `sentences.json`、Python Training問題は `python_lessons.json`、TOEIC教材は `toeic.json` として `docs/static` へ出力されます。Pythonの教材データを変更したら、commit前に次を実行してください。
 
 ```bash
 python build_site.py
@@ -122,18 +142,22 @@ python build_site.py
 2. `questions.py` / `sentence_questions.py` — 英語ゲームの問題
 3. `learning/catalog.py` — Python LEARNのModuleと153 Concept
 4. `learning/english.py` — Tech English LEARNの40 Concept
-5. `static/learn.js` — Module/Concept表示、RUN、進捗、Bookmark
-6. `python_lessons.py` — Python Trainingの50問
-7. `templates/` — 画面のHTML
-8. `static/training.js` — 5問セッション、入力判定、XP保存
-9. `static/progress.js` — Accuracyと星の表示
-10. `static/game.js` — 既存WORD/SENTENCEゲーム
-11. `static/style.css` — ダークHUDデザイン
-12. `build_site.py` — GitHub Pages用ファイルの生成
+5. `toeic_lessons.py` — TOEICの12か月目標と48 Reading Lesson
+6. `static/toeic.js` — 4段階表示、自分の解釈、進捗保存
+7. `static/learn.js` — Module/Concept表示、RUN、進捗、Bookmark
+8. `python_lessons.py` — Python Trainingの50問
+9. `templates/` — 画面のHTML
+10. `static/training.js` — 5問セッション、入力判定、XP保存
+11. `static/progress.js` — Accuracyと星の表示
+12. `static/game.js` — 既存WORD/SENTENCEゲーム
+13. `static/style.css` — ダークHUDデザイン
+14. `build_site.py` — GitHub Pages用ファイルの生成
 
 ## Python学習ポイント
 
-- **import**: `app.py` と `build_site.py` が `python_lessons.py` のlistを読み込みます。
+- **import**: `app.py` と `build_site.py` が `python_lessons.py` と `toeic_lessons.py` のlistを読み込みます。
+- **list / dictionary**: `toeic_lessons.py` は48レッスンをlistで持ち、各レッスンをdictionaryとして保存します。
+- **function**: `make_lesson()` は受け取った英文や分解データから、1レッスン分のdictionaryを作ってreturnします。
 - **list**: 50問を順番に保持し、条件に合う問題を新しいlistへ取り出します。
 - **dictionary**: 各問題に `skill`、`type`、`instruction`、`answer`、`hint`、`explanation`、`difficulty` を保存します。
 - **function**: `get_python_lessons()` がTraining問題をJSONで返します。
