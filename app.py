@@ -8,6 +8,7 @@ from questions import all_questions
 from sentence_questions import sentence_questions
 from python_lessons import python_lessons
 from learning import all_learning_concepts, english_modules, learning_modules
+from toeic_lessons import toeic_goal, toeic_lessons, toeic_months
 
 app = Flask(__name__)
 
@@ -50,12 +51,28 @@ def glossary():
     return render_template("glossary.html")
 
 
+@app.route("/toeic")
+@app.route("/toeic/<lesson_id>")
+def toeic(lesson_id=None):
+    """Render the TOEIC course shell; JavaScript selects the lesson."""
+    return render_template("toeic.html")
+
+
 @app.route("/api/learning")
 def get_learning_content():
     return jsonify({
         "modules": learning_modules,
         "english_modules": english_modules,
         "concepts": all_learning_concepts,
+    })
+
+
+@app.route("/api/toeic")
+def get_toeic_content():
+    return jsonify({
+        "goal": toeic_goal,
+        "months": toeic_months,
+        "lessons": toeic_lessons,
     })
 
 
